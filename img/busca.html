@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#141311" media="(prefers-color-scheme: dark)">
+  <title>Busca de Imóveis | JM Imóveis</title>
+  <meta name="description" content="Busque imóveis cadastrados na JM Imóveis por tipo, finalidade, localização e faixa de preço.">
+  <link rel="icon" type="image/svg+xml" href="img/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    :root {
+      --color-pearl: #FAF8F5;
+      --color-leather: #262626;
+      --color-taupe: #A3968D;
+      --color-khaki: #DFDACF;
+      --color-surface: #fff;
+      --color-text-muted: #444;
+      --color-footer-bg: #262626;
+      --color-footer-text: #FAF8F5;
+      --header-bg: rgba(250, 248, 245, 0.34);
+      --header-border: rgba(223, 218, 207, 0.42);
+      --shadow-soft: 0 14px 30px rgba(38, 38, 38, 0.06);
+      --hero-light-overlay: rgba(250, 248, 245, 0.57);
+      --hero-night-overlay: rgba(12, 11, 10, 0.38);
+      --hero-title: #000;
+      --hero-subtitle: #2b2412;
+      --gallery-control-bg: rgba(255, 255, 255, 0.86);
+      --whatsapp-bg: rgba(250, 248, 245, 0.96);
+      --whatsapp-text: #262626;
+      --whatsapp-icon: #25D366;
+      --whatsapp-border: rgba(38, 38, 38, 0.08);
+      --whatsapp-shadow: 0 8px 24px rgba(38, 38, 38, 0.12);
+      --whatsapp-hover-shadow: 0 12px 30px rgba(38, 38, 38, 0.18);
+      --whatsapp-contrast-bg: rgba(38, 38, 38, 0.94);
+      --whatsapp-contrast-text: #FAF8F5;
+      --whatsapp-contrast-border: rgba(223, 218, 207, 0.18);
+      --font-main: 'Montserrat', sans-serif;
+      --font-serif: 'Playfair Display', serif;
+      --transition: all 0.3s ease;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color-scheme: dark;
+        --color-pearl: #141311;
+        --color-leather: #F3EEE7;
+        --color-taupe: #BAAA9D;
+        --color-khaki: #3A352F;
+        --color-surface: #1D1A17;
+        --color-text-muted: #D2C7BD;
+        --color-footer-bg: #0F0E0D;
+        --color-footer-text: #F3EEE7;
+        --header-bg: rgba(20, 19, 17, 0.62);
+        --header-border: rgba(186, 170, 157, 0.28);
+        --shadow-soft: 0 14px 30px rgba(0, 0, 0, 0.32);
+        --hero-light-overlay: rgba(250, 248, 245, 0.57);
+        --hero-night-overlay: rgba(9, 8, 7, 0.34);
+        --hero-title: #FFF8EF;
+        --hero-subtitle: #E2D5C7;
+        --gallery-control-bg: rgba(29, 26, 23, 0.88);
+        --whatsapp-bg: rgba(29, 26, 23, 0.94);
+        --whatsapp-text: #F3EEE7;
+        --whatsapp-icon: #44E07A;
+        --whatsapp-border: rgba(186, 170, 157, 0.28);
+        --whatsapp-shadow: 0 10px 28px rgba(0, 0, 0, 0.42);
+        --whatsapp-hover-shadow: 0 14px 34px rgba(0, 0, 0, 0.5);
+        --whatsapp-contrast-bg: rgba(20, 19, 17, 0.96);
+        --whatsapp-contrast-text: #F3EEE7;
+        --whatsapp-contrast-border: rgba(186, 170, 157, 0.34);
+      }
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+      overscroll-behavior: none;
+      background-color: var(--color-pearl);
+    }
+    body {
+      font-family: var(--font-main);
+      background-color: var(--color-pearl);
+      color: var(--color-leather);
+      line-height: 1.6;
+      animation: page-enter 0.45s ease both;
+      overscroll-behavior: none;
+      transition: background-color 0.45s ease, color 0.45s ease;
+    }
+    @keyframes page-enter {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body { animation: none; }
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; height: auto; display: block; }
+    .serif { font-family: var(--font-serif); }
+
+    header {
+      position: fixed; top: 16px; left: 50%; width: min(1180px, calc(100% - 40px));
+      transform: translate3d(-50%, 0, 0);
+      background-color: var(--header-bg);
+      backdrop-filter: blur(12px) saturate(125%);
+      -webkit-backdrop-filter: blur(12px) saturate(125%);
+      z-index: 1000;
+      border: 1px solid var(--header-border);
+      border-radius: 999px;
+      padding: 0.9rem 1.35rem;
+      box-shadow: var(--shadow-soft);
+      backface-visibility: hidden; contain: layout paint; isolation: isolate; will-change: transform;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo {
+      font-size: 2.2rem; font-family: var(--font-serif);
+      font-weight: 700; display: flex; align-items: center; justify-content: center; line-height: 1;
+      width: 52px; height: 52px; border-radius: 50%; color: var(--color-leather); transition: var(--transition);
+    }
+    .logo:hover {
+      background-color: var(--color-leather);
+      color: var(--color-pearl);
+    }
+    .logo svg {
+      height: 0.55em; width: auto; fill: currentColor; transition: var(--transition);
+    }
+    nav { display: flex; gap: 0.6rem; }
+    nav a {
+      font-weight: 500; font-size: 0.9rem; text-transform: uppercase;
+      letter-spacing: 1px; transition: var(--transition); color: var(--color-leather);
+      padding: 0.65rem 1rem; border-radius: 999px;
+    }
+    nav a:hover,
+    nav a:focus-visible {
+      color: var(--color-pearl);
+      background-color: var(--color-leather);
+      box-shadow: none;
+    }
+
+    .search-hero {
+      min-height: 360px;
+      padding: 150px 5% 70px;
+      text-align: center;
+      background-color: var(--color-pearl);
+      border-bottom: 1px solid var(--color-khaki);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+    }
+    .search-hero::before,
+    .search-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      transition: opacity 0.75s ease;
+      will-change: opacity;
+    }
+    .search-hero::before {
+      background-image: linear-gradient(var(--hero-light-overlay), var(--hero-light-overlay)), url('img/hero_principal.webp');
+      opacity: 1;
+    }
+    .search-hero::after {
+      background-image: linear-gradient(var(--hero-night-overlay), var(--hero-night-overlay)), url('img/hero_principal_night.webp');
+      opacity: 0;
+    }
+    @media (prefers-color-scheme: dark) {
+      .search-hero::before { opacity: 0; }
+      .search-hero::after { opacity: 1; }
+    }
+    .search-hero h1 {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      color: var(--hero-title);
+    }
+    .search-hero p {
+      max-width: 680px;
+      margin: 0 auto;
+      color: var(--hero-subtitle);
+      font-size: 1.05rem;
+    }
+
+    .search-wrap {
+      width: min(1200px, 90%);
+      margin: 0 auto;
+      padding: 50px 0 100px;
+    }
+    .search-panel {
+      background: var(--color-surface);
+      border: 1px solid var(--color-khaki);
+      border-radius: 18px;
+      padding: 2rem 2rem 2.2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-soft);
+    }
+    .search-command {
+      margin-bottom: 2.25rem;
+    }
+    .search-command input {
+      font-size: 1.08rem;
+      padding: 14px 0;
+    }
+    .filter-workbench {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+      gap: 1.7rem 2rem;
+      align-items: end;
+    }
+    .filter-wide {
+      grid-column: span 2;
+    }
+    .filter-group { display: flex; flex-direction: column; gap: 6px; }
+    .filter-group label {
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--color-taupe); font-weight: 600;
+    }
+    .filter-group input {
+      width: 100%;
+      padding: 12px 0;
+      border: none;
+      border-bottom: 1px solid var(--color-khaki);
+      font-family: var(--font-main);
+      font-size: 1rem;
+      color: var(--color-leather);
+      background: transparent;
+      outline: none;
+    }
+    .filter-group input:focus { border-color: var(--color-leather); }
+    .site-select {
+      position: relative;
+    }
+    .site-select-trigger {
+      width: 100%;
+      padding: 12px 0;
+      border: none;
+      border-bottom: 1px solid var(--color-khaki);
+      font-family: var(--font-main);
+      font-size: 1rem;
+      color: var(--color-leather);
+      background: transparent;
+      outline: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      text-align: left;
+      transition: border-color 0.2s;
+    }
+    .site-select-trigger iconify-icon {
+      font-size: 1.15rem;
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+    }
+    .site-select.open .site-select-trigger,
+    .site-select-trigger:focus-visible {
+      border-color: var(--color-leather);
+    }
+    .site-select.open .site-select-trigger iconify-icon {
+      transform: rotate(180deg);
+    }
+    .site-select-menu {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      right: 0;
+      z-index: 20;
+      background: var(--color-surface);
+      border: 1px solid var(--color-khaki);
+      border-radius: 12px;
+      box-shadow: var(--shadow-soft);
+      padding: 8px;
+      max-height: 260px;
+      overflow-y: auto;
+      opacity: 0;
+      transform: translateY(-8px);
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .site-select.open .site-select-menu {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .site-select-option {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: var(--color-leather);
+      font-family: var(--font-main);
+      font-size: 0.95rem;
+      text-align: left;
+      padding: 11px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.18s ease, color 0.18s ease;
+    }
+    .site-select-option:hover,
+    .site-select-option.selected {
+      background: var(--color-leather);
+      color: var(--color-khaki);
+    }
+    .price-filter {
+      display: contents;
+    }
+    .price-filter .filter-group label {
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+    .price-input-wrap { position: relative; }
+    .price-input-wrap .price-prefix {
+      position: absolute; left: 0; bottom: 12px;
+      color: var(--color-leather); pointer-events: none; font-size: 1rem;
+    }
+    .price-input-wrap input {
+      padding-left: 26px;
+    }
+    .price-input-wrap input[type=number]::-webkit-inner-spin-button,
+    .price-input-wrap input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none; margin: 0;
+    }
+    .price-input-wrap input[type=number] { -moz-appearance: textfield; }
+    .filter-actions {
+      display: grid;
+      grid-template-columns: minmax(190px, 260px) minmax(150px, 190px);
+      gap: 14px;
+      align-items: end;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%;
+      height: 52px; padding: 0 20px; border-radius: 999px;
+      font-family: var(--font-main); font-weight: 600; font-size: 0.8rem;
+      text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: var(--transition);
+      border: 1px solid var(--color-leather);
+      white-space: nowrap;
+    }
+    .btn-primary { background: var(--color-leather); color: var(--color-khaki); }
+    .btn-secondary { background: transparent; color: var(--color-leather); }
+    .btn:hover { background: var(--color-taupe); border-color: var(--color-taupe); color: #fff; transform: translateY(-1px); }
+
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      color: var(--color-taupe);
+      font-weight: 500;
+    }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+
+    .card {
+      background-color: var(--color-surface); overflow: hidden; border: 1px solid var(--color-khaki);
+      transition: var(--transition); display: flex; flex-direction: column;
+      border-radius: 14px;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(38, 38, 38, 0.08); }
+    .card-img { position: relative; height: 300px; overflow: hidden; }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
+    .card:hover .card-img img { transform: scale(1.08); }
+    .card-badges {
+      position: absolute; top: 20px; left: 20px;
+      display: flex; flex-direction: column; gap: 8px;
+      z-index: 2;
+    }
+    .card-badge {
+      background-color: var(--color-leather);
+      color: var(--color-khaki); padding: 6px 14px; font-size: 0.75rem; font-weight: 600;
+      border: 1px solid var(--color-leather); border-radius: 999px;
+      display: flex; align-items: center; gap: 6px; width: max-content;
+    }
+    .card-badge iconify-icon, .card-badge svg { font-size: 1.05rem; color: var(--color-khaki); }
+    .card-content { padding: 2rem; flex: 1; display: flex; flex-direction: column; }
+    .card-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.3rem; line-height: 1.3; }
+    .card-location { font-size: 0.9rem; color: var(--color-leather); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 8px; }
+    .card-location iconify-icon { color: var(--color-taupe); }
+    .card-price { font-size: 1.6rem; font-weight: 600; color: var(--color-leather); margin-bottom: 1.5rem; font-family: var(--font-serif); }
+    .card-features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; border-top: 1px solid var(--color-khaki); padding-top: 1.5rem; margin-bottom: 2rem; }
+    .feature { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--color-leather); }
+    .feature iconify-icon, .feature svg { color: var(--color-taupe); font-size: 1.2rem; }
+    .card-btn {
+      display: block; text-align: center; width: 100%; padding: 14px; background-color: transparent;
+      color: var(--color-leather); border: 1px solid var(--color-leather); font-weight: 500;
+      text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; transition: var(--transition);
+      margin-top: auto; cursor: pointer; border-radius: 10px;
+    }
+    .card-btn:hover { background-color: var(--color-leather); color: var(--color-pearl); }
+    .no-results { grid-column: 1 / -1; text-align: center; padding: 3rem; font-size: 1.15rem; color: var(--color-taupe); background: var(--color-surface); border: 1px solid var(--color-khaki); border-radius: 14px; }
+
+    .register-cta-wrap { margin-top: 3.5rem; }
+    .register-cta-btn {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 3.5rem 2rem;
+      background: var(--color-leather);
+      color: var(--color-khaki);
+      border: 1px solid var(--color-leather);
+      border-radius: 24px;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: center;
+    }
+    .register-cta-btn iconify-icon { font-size: 2.4rem; }
+    .register-cta-btn span.cta-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+    .register-cta-btn span.cta-sub {
+      font-family: var(--font-main);
+      font-size: 0.9rem;
+      color: var(--color-khaki);
+      opacity: 0.8;
+      max-width: 480px;
+    }
+    .register-cta-btn:hover { background: var(--color-taupe); border-color: var(--color-taupe); transform: translateY(-2px); }
+
+    .register-form { display: flex; flex-direction: column; gap: 1.4rem; margin-top: 1.5rem; }
+    .register-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem 1.8rem; }
+    .register-form .filter-group label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--color-taupe); font-weight: 600; }
+    .register-form .filter-group input,
+    .register-form .filter-group select,
+    .register-form .filter-group textarea {
+      width: 100%; padding: 12px 0; border: none; border-bottom: 1px solid var(--color-khaki);
+      font-family: var(--font-main); font-size: 1rem; color: var(--color-leather); background: transparent; outline: none;
+    }
+    .register-form .filter-group select { cursor: pointer; }
+    .register-form .filter-group textarea { resize: vertical; min-height: 70px; }
+    .register-form .filter-group input:focus,
+    .register-form .filter-group select:focus,
+    .register-form .filter-group textarea:focus { border-color: var(--color-leather); }
+    .register-form-note { font-size: 0.85rem; color: var(--color-taupe); }
+    .register-success {
+      display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; padding: 1.5rem 0;
+    }
+    .register-success iconify-icon { font-size: 3rem; color: #27ae60; }
+    @media (max-width: 768px) {
+      .register-form-row { grid-template-columns: 1fr; }
+    }
+
+    footer { background-color: var(--color-footer-bg); color: var(--color-footer-text); padding: 45px 5%; text-align: center; }
+    footer a { color: var(--color-khaki); }
+
+    .floating-whatsapp {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      background-color: var(--whatsapp-bg);
+      color: var(--whatsapp-icon);
+      height: 60px;
+      border-radius: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 14px;
+      font-size: 2rem;
+      box-shadow: var(--whatsapp-shadow);
+      z-index: 1000;
+      transition: all 0.4s ease;
+      text-decoration: none;
+      overflow: hidden;
+      border: 1px solid var(--whatsapp-border);
+      backdrop-filter: blur(12px) saturate(125%);
+      -webkit-backdrop-filter: blur(12px) saturate(125%);
+    }
+
+    .whatsapp-text {
+      max-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      opacity: 0;
+      transition: all 0.4s ease;
+      font-family: var(--font-main);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--whatsapp-text);
+    }
+
+    .floating-whatsapp:hover {
+      box-shadow: var(--whatsapp-hover-shadow);
+      padding: 0 20px;
+    }
+
+    .floating-whatsapp:hover .whatsapp-text {
+      max-width: 200px;
+      opacity: 1;
+      margin-left: 10px;
+    }
+
+    .floating-whatsapp.dark-whatsapp {
+      background-color: var(--whatsapp-contrast-bg);
+      border-color: var(--whatsapp-contrast-border);
+    }
+
+    .floating-whatsapp.dark-whatsapp .whatsapp-text {
+      color: var(--whatsapp-contrast-text);
+    }
+
+    .modal {
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(38, 38, 38, 0.8); backdrop-filter: blur(5px); z-index: 2000;
+      justify-content: center; align-items: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease;
+    }
+    .modal.active { display: flex; opacity: 1; }
+    .modal-content {
+      background: var(--color-pearl); padding: 2.5rem; max-width: 780px; max-height: 88vh; overflow-y: auto; width: 100%;
+      position: relative; border: 1px solid var(--color-khaki); transform: translateY(20px); transition: transform 0.3s ease;
+      border-radius: 20px;
+    }
+    .modal.active .modal-content { transform: translateY(0); }
+    .close-modal {
+      position: absolute; top: 20px; right: 20px; background: none; border: none;
+      font-size: 2rem; cursor: pointer; color: var(--color-leather); line-height: 1; z-index: 5;
+    }
+    .modal-body h4 { font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 0.4rem; color: var(--color-leather); }
+    .modal-body p { margin-bottom: 1.5rem; color: var(--color-text-muted); }
+    .modal-cta {
+      display: flex; align-items: center; justify-content: center; width: 100%; gap: 10px; background: var(--color-leather);
+      color: var(--color-khaki); padding: 14px; text-transform: uppercase; font-weight: 500;
+      letter-spacing: 1px; font-size: 0.85rem; transition: var(--transition); border-radius: 10px;
+    }
+    .modal-cta:hover { background: var(--color-taupe); color: #fff; }
+
+    /* Galeria grande do modal */
+    .gallery-stage { position: relative; width: 100%; aspect-ratio: 16 / 10; border-radius: 14px; overflow: hidden; background: var(--color-khaki); margin-bottom: 10px; }
+    .gallery-photos-visual, .gallery-map-visual {
+      position: absolute; inset: 0;
+      opacity: 0; transform: scale(0.96); pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .gallery-photos-visual.active, .gallery-map-visual.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+    .modal-gallery-main { position: relative; width: 100%; height: 100%; }
+    .modal-gallery-main img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery-nav {
+      position: absolute; top: 50%; transform: translateY(-50%); background: var(--gallery-control-bg);
+      border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1.3rem; color: var(--color-leather); transition: var(--transition);
+    }
+    .gallery-nav:hover { background: var(--color-surface); }
+    .gallery-nav.prev { left: 12px; }
+    .gallery-nav.next { right: 12px; }
+
+    .gallery-corner { position: absolute; bottom: 12px; right: 12px; display: flex; align-items: center; gap: 6px; z-index: 3; }
+    .gallery-counter { background: var(--gallery-control-bg); color: var(--color-leather); padding: 4px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+    .gallery-map-btn {
+      display: flex; align-items: center; gap: 6px; border: none; background: var(--gallery-control-bg);
+      color: var(--color-leather); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.3px;
+      padding: 6px 12px; border-radius: 999px; cursor: pointer; transition: var(--transition);
+    }
+    .gallery-map-btn:hover { background: var(--color-khaki); }
+    .gallery-map-btn iconify-icon { font-size: 0.95rem; }
+    .gallery-expand-btn {
+      display: flex; align-items: center; justify-content: center; border: none; background: var(--gallery-control-bg);
+      color: var(--color-leather); width: 28px; height: 28px; border-radius: 50%; cursor: pointer; transition: var(--transition); font-size: 0.9rem;
+    }
+    .gallery-expand-btn:hover { background: var(--color-khaki); }
+    .gallery-expand-btn svg { width: 1em; height: 1em; display: block; }
+
+    .gallery-map-visual { background: var(--color-khaki); }
+    .gallery-map-visual iframe { width: 100%; height: 100%; border: 0; display: block; opacity: 0; transition: opacity 0.6s ease; }
+    .gallery-map-visual iframe.loaded { opacity: 1; }
+    .gallery-map-loading {
+      position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 8px; color: var(--color-leather); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 2;
+    }
+    .gallery-map-loading.active { opacity: 1; }
+    .gallery-map-loading svg { width: 2.2em; height: 2.2em; }
+    .gallery-map-loading span { font-size: 0.75rem; letter-spacing: 0.4px; color: var(--color-taupe); }
+
+    /* Faixa de miniaturas abaixo da foto principal: sempre visível */
+    .gallery-subrow { margin-bottom: 1.5rem; }
+    .modal-thumbs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; justify-content: safe center; }
+    .modal-thumbs img { width: 70px; height: 55px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid transparent; opacity: 0.6; transition: var(--transition); flex-shrink: 0; }
+    .modal-thumbs img.active { border-color: var(--color-leather); opacity: 1; }
+
+    /* Lightbox de ampliação (fotos/mapa maiores) sobre o modal de detalhes */
+    .lightbox {
+      position: fixed; inset: 0; background: #0c0b09; z-index: 2100;
+      display: flex; align-items: center; justify-content: center; padding: 60px;
+      opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
+    }
+    .lightbox.active { opacity: 1; pointer-events: auto; }
+    .lightbox-close {
+      position: absolute; top: 24px; right: 24px; width: 44px; height: 44px; border-radius: 50%;
+      border: none; background: rgba(255,255,255,0.12); color: #fff; font-size: 1.4rem;
+      display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition); z-index: 2;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .lightbox-content {
+      position: relative; width: 100%; height: 100%; max-width: 1400px;
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+    }
+    .lightbox-stage { position: relative; width: 100%; flex: 1; min-height: 0; }
+    .lightbox-photos, .lightbox-map {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: scale(0.96); pointer-events: none; transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .lightbox-photos.active, .lightbox-map.active { opacity: 1; transform: scale(1); }
+    .lightbox.active .lightbox-photos.active, .lightbox.active .lightbox-map.active { pointer-events: auto; }
+    .lightbox-photos img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 12px; }
+    .lightbox-map iframe { width: 100%; height: 100%; border: 0; border-radius: 12px; }
+    .lightbox-controls { display: flex; align-items: center; justify-content: center; gap: 18px; flex-shrink: 0; }
+    .lightbox-nav {
+      background: rgba(255,255,255,0.12); border: none; width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1.5rem; color: #fff; transition: var(--transition);
+    }
+    .lightbox-nav:hover { background: rgba(255,255,255,0.25); }
+    .lightbox-counter {
+      color: #fff; font-size: 0.85rem; background: rgba(255,255,255,0.12); padding: 6px 16px; border-radius: 999px;
+    }
+    .lightbox-thumbs {
+      display: flex; gap: 8px; overflow-x: auto; max-width: 100%; padding: 2px 2px 6px; flex-shrink: 0; justify-content: safe center;
+    }
+    .lightbox-thumbs img {
+      width: 70px; height: 54px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid transparent;
+      opacity: 0.55; transition: var(--transition); flex-shrink: 0;
+    }
+    .lightbox-thumbs img.active { opacity: 1; border-color: #fff; }
+    @media (max-width: 768px) {
+      .lightbox { padding: 20px 12px; }
+      .lightbox-nav { width: 38px; height: 38px; font-size: 1.3rem; }
+      .lightbox-close { top: 12px; right: 12px; }
+      .lightbox-thumbs img { width: 56px; height: 44px; }
+    }
+
+    /* Scrollbar moderna para dialogs e faixas de miniaturas */
+    .modal-content, .modal-thumbs, .lightbox-thumbs {
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-taupe) transparent;
+    }
+    .modal-content::-webkit-scrollbar, .modal-thumbs::-webkit-scrollbar, .lightbox-thumbs::-webkit-scrollbar { width: 8px; height: 6px; }
+    .modal-content::-webkit-scrollbar-track, .modal-thumbs::-webkit-scrollbar-track, .lightbox-thumbs::-webkit-scrollbar-track { background: transparent; }
+    .modal-content::-webkit-scrollbar-thumb, .modal-thumbs::-webkit-scrollbar-thumb, .lightbox-thumbs::-webkit-scrollbar-thumb {
+      background-color: var(--color-taupe); border-radius: 999px;
+    }
+
+    .modal-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 0.75rem; }
+    .modal-badges .card-badge { position: static; }
+    .modal-sub { color: var(--color-taupe); font-weight: 500; margin-bottom: 0.75rem; }
+    .modal-location { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; font-size: 0.95rem; }
+    .maps-link { display: inline-flex; align-items: center; gap: 6px; color: var(--color-leather); text-decoration: underline; font-size: 0.85rem; font-weight: 600; margin-left: 8px; }
+    .modal-price { font-size: 1.6rem; font-weight: 600; font-family: var(--font-serif); margin-bottom: 1.5rem; }
+    .modal-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem 0.5rem; border-top: 1px solid var(--color-khaki); border-bottom: 1px solid var(--color-khaki); padding: 1.25rem 0; margin-bottom: 1.5rem; }
+    .modal-stat { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; font-size: 0.85rem; }
+    .modal-stat iconify-icon, .modal-stat svg { font-size: 1.4rem; color: var(--color-taupe); }
+    .modal-features-block { margin-bottom: 1.5rem; }
+    .modal-features-block h5 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-taupe); margin-bottom: 0.75rem; font-weight: 700; }
+    .modal-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .modal-tag { background: var(--color-pearl); border: 1px solid var(--color-khaki); padding: 6px 14px; border-radius: 999px; font-size: 0.8rem; display: flex; align-items: center; gap: 6px; }
+    .modal-tag iconify-icon { color: #27ae60; font-size: 1rem; }
+    .modal-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 0.5rem; }
+    .modal-more-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+      padding: 14px; border: 1px solid var(--color-leather); border-radius: 10px; font-weight: 600;
+      text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; transition: var(--transition);
+    }
+    .modal-more-btn:hover { background: var(--color-leather); color: var(--color-pearl); }
+
+    @media (max-width: 992px) {
+      .filter-workbench {
+        grid-template-columns: repeat(2, minmax(160px, 1fr));
+      }
+      .filter-wide { grid-column: span 2; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      header { top: 12px; width: calc(100% - 24px); padding: 0.8rem 1rem; }
+      .logo { position: static; transform: none; }
+      nav { justify-content: flex-end; gap: 1rem; }
+      nav a { font-size: 0.8rem; }
+      .search-panel { padding: 1.35rem; }
+      .filter-workbench, .price-filter, .filter-actions, .grid { grid-template-columns: 1fr; }
+      .filter-wide { grid-column: auto; }
+      .filter-actions {
+        grid-column: auto;
+      }
+      .results-header { align-items: flex-start; flex-direction: column; }
+      .floating-whatsapp { bottom: 20px; right: 20px; height: 50px; padding: 0 13px; font-size: 1.5rem; }
+      .modal-content { padding: 1.75rem 1.25rem; }
+      .modal-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">
+      <svg viewBox="0 0 892 606" xmlns="http://www.w3.org/2000/svg">
+        <path d="M392.119 323.865V218.745L592.739 377.121L791.179 213.529L791.909 603.924C792.639 605.744 797.879 605.864 842.159 605.624H891.549V0.534287C891.549 0.322236 891.302 0.206492 891.139 0.342371L592.739 249.405C592.129 249.405 315.359 22.51 287.499 0V223.245C286.889 424.345 286.769 434.084 284.579 441.624C277.039 467.904 261.219 486.884 237.129 498.684C230.439 502.094 221.549 505.624 217.539 506.714C205.859 509.884 186.509 510.364 173.739 507.934C141.859 501.974 119.229 485.674 104.999 458.544L98.7992 446.504L0 465.001C0 483.861 16.5392 521.444 39.0492 544.564C74.2092 580.584 117.399 599.434 174.339 603.574C241.619 608.434 300.509 588.854 342.359 547.484C356.709 533.244 365.469 521.564 373.259 506.114C383.599 485.554 388.829 466.704 390.899 442.854C391.509 435.064 392.119 382.265 392.119 323.865Z"/>
+      </svg>
+    </a>
+    <nav>
+      <a href="busca.html">Busca</a>
+      <a href="index.html#sobre">Sobre</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+  </header>
+
+  <section class="search-hero">
+    <h1 class="serif">Encontre seu imóvel</h1>
+    <p>Consulte todos os imóveis cadastrados e refine a busca por tipo, finalidade, localização e faixa de preço.</p>
+  </section>
+
+  <main class="search-wrap">
+    <section class="search-panel" aria-label="Filtros de busca">
+      <div class="filter-group search-command">
+        <label for="filter-busca">Busca livre</label>
+        <input type="text" id="filter-busca" placeholder="Cidade, bairro, condomínio, construtora ou código">
+      </div>
+
+      <div class="filter-workbench">
+        <div class="filter-group">
+          <label for="filter-tipo">Tipo</label>
+          <input type="hidden" id="filter-tipo" value="">
+          <div class="site-select" data-select="filter-tipo">
+            <button type="button" class="site-select-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span data-select-label>Todos os tipos</span>
+              <iconify-icon icon="mdi:chevron-down"></iconify-icon>
+            </button>
+            <div class="site-select-menu" role="listbox">
+              <button type="button" class="site-select-option selected" data-value="" data-label="Todos os tipos">Todos os tipos</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-finalidade">Finalidade</label>
+          <input type="hidden" id="filter-finalidade" value="">
+          <div class="site-select" data-select="filter-finalidade">
+            <button type="button" class="site-select-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span data-select-label>Todas</span>
+              <iconify-icon icon="mdi:chevron-down"></iconify-icon>
+            </button>
+            <div class="site-select-menu" role="listbox">
+              <button type="button" class="site-select-option selected" data-value="" data-label="Todas">Todas</button>
+              <button type="button" class="site-select-option" data-value="Compra" data-label="Compra">Compra</button>
+              <button type="button" class="site-select-option" data-value="Aluguel" data-label="Aluguel">Aluguel</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-banheiros">Banheiros</label>
+          <input type="hidden" id="filter-banheiros" value="">
+          <div class="site-select" data-select="filter-banheiros">
+            <button type="button" class="site-select-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span data-select-label>Qualquer</span>
+              <iconify-icon icon="mdi:chevron-down"></iconify-icon>
+            </button>
+            <div class="site-select-menu" role="listbox">
+              <button type="button" class="site-select-option selected" data-value="" data-label="Qualquer">Qualquer</button>
+              <button type="button" class="site-select-option" data-value="1" data-label="1+ banheiro">1+ banheiro</button>
+              <button type="button" class="site-select-option" data-value="2" data-label="2+ banheiros">2+ banheiros</button>
+              <button type="button" class="site-select-option" data-value="3" data-label="3+ banheiros">3+ banheiros</button>
+              <button type="button" class="site-select-option" data-value="4" data-label="4+ banheiros">4+ banheiros</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-vagas">Vagas</label>
+          <input type="hidden" id="filter-vagas" value="">
+          <div class="site-select" data-select="filter-vagas">
+            <button type="button" class="site-select-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span data-select-label>Qualquer</span>
+              <iconify-icon icon="mdi:chevron-down"></iconify-icon>
+            </button>
+            <div class="site-select-menu" role="listbox">
+              <button type="button" class="site-select-option selected" data-value="" data-label="Qualquer">Qualquer</button>
+              <button type="button" class="site-select-option" data-value="1" data-label="1+ vaga">1+ vaga</button>
+              <button type="button" class="site-select-option" data-value="2" data-label="2+ vagas">2+ vagas</button>
+              <button type="button" class="site-select-option" data-value="3" data-label="3+ vagas">3+ vagas</button>
+              <button type="button" class="site-select-option" data-value="4" data-label="4+ vagas">4+ vagas</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group filter-wide">
+          <label for="filter-caracteristica">Características</label>
+          <input type="hidden" id="filter-caracteristica" value="">
+          <div class="site-select" data-select="filter-caracteristica">
+            <button type="button" class="site-select-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span data-select-label>Todas as características</span>
+              <iconify-icon icon="mdi:chevron-down"></iconify-icon>
+            </button>
+            <div class="site-select-menu" role="listbox">
+              <button type="button" class="site-select-option selected" data-value="" data-label="Todas as características">Todas as características</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="price-filter">
+          <div class="filter-group">
+            <label for="price-min">Preço mínimo</label>
+            <div class="price-input-wrap">
+              <span class="price-prefix">R$</span>
+              <input type="number" id="price-min" min="0" step="1000">
+            </div>
+          </div>
+          <div class="filter-group">
+            <label for="price-max">Preço máximo</label>
+            <div class="price-input-wrap">
+              <span class="price-prefix">R$</span>
+              <input type="number" id="price-max" min="0" step="1000">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-actions">
+        <button type="button" class="btn btn-secondary" id="clear-filters">
+          Limpar filtros
+          <iconify-icon icon="mdi:filter-remove-outline"></iconify-icon>
+        </button>
+        <button type="button" class="btn btn-primary" id="apply-filters">
+          Buscar
+          <iconify-icon icon="mdi:magnify"></iconify-icon>
+        </button>
+      </div>
+    </section>
+
+    <div class="results-header">
+      <span id="results-count">0 imóveis encontrados</span>
+      <span>Catálogo completo da JM Imóveis</span>
+    </div>
+
+    <section class="grid" id="properties-grid" aria-live="polite"></section>
+
+    <section class="register-cta-wrap">
+      <button type="button" class="register-cta-btn" id="open-register-btn">
+        <iconify-icon icon="mdi:home-plus-outline"></iconify-icon>
+        <span class="cta-title">Registre seu imóvel</span>
+        <span class="cta-sub">Preencha algumas informações básicas e um de nossos corretores entrará em contato para completar o anúncio.</span>
+      </button>
+    </section>
+  </main>
+
+  <footer>
+    <p>JM Imóveis | <a href="https://wa.me/5547920013095" target="_blank" rel="noopener noreferrer">Fale pelo WhatsApp</a></p>
+  </footer>
+
+  <a href="https://wa.me/5547920013095" class="floating-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+    <iconify-icon icon="mdi:whatsapp"></iconify-icon>
+    <span class="whatsapp-text">Fale com o corretor</span>
+  </a>
+
+  <div class="modal" id="property-modal">
+    <div class="modal-content">
+      <button class="close-modal" id="close-modal">&times;</button>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+    <div class="lightbox" id="modal-lightbox" onclick="if (event.target === this) closeModalLightbox()">
+      <button type="button" class="lightbox-close" onclick="closeModalLightbox()" aria-label="Fechar"><iconify-icon icon="mdi:close"></iconify-icon></button>
+      <div class="lightbox-content">
+        <div class="lightbox-stage">
+          <div class="lightbox-photos active" id="modal-lightbox-photos">
+            <img id="modal-lightbox-img" src="" alt="">
+          </div>
+          <div class="lightbox-map" id="modal-lightbox-map">
+            <iframe id="modal-lightbox-map-iframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+        <div class="lightbox-thumbs" id="modal-lightbox-thumbs"></div>
+        <div class="lightbox-controls" id="modal-lightbox-controls">
+          <button type="button" class="lightbox-nav prev" onclick="modalGalleryPrev()" aria-label="Foto anterior"><iconify-icon icon="mdi:chevron-left"></iconify-icon></button>
+          <span class="lightbox-counter" id="modal-lightbox-counter"></span>
+          <button type="button" class="lightbox-nav next" onclick="modalGalleryNext()" aria-label="Próxima foto"><iconify-icon icon="mdi:chevron-right"></iconify-icon></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="register-modal">
+    <div class="modal-content">
+      <button class="close-modal" id="close-register-modal">&times;</button>
+      <div class="modal-body">
+        <h4 class="serif">Registre seu imóvel</h4>
+        <p>Conte um pouco sobre o seu imóvel. Não é necessário preencher tudo agora — um de nossos corretores entrará em contato para completar o anúncio antes da publicação.</p>
+
+        <form class="register-form" id="register-form">
+          <div class="register-form-row">
+            <div class="filter-group">
+              <label for="reg-nome">Seu nome</label>
+              <input type="text" id="reg-nome" required>
+            </div>
+            <div class="filter-group">
+              <label for="reg-contato">Telefone / WhatsApp</label>
+              <input type="tel" id="reg-contato" required>
+            </div>
+          </div>
+
+          <div class="register-form-row">
+            <div class="filter-group">
+              <label for="reg-tipo">Tipo do imóvel</label>
+              <select id="reg-tipo">
+                <option value="Apartamento">Apartamento</option>
+                <option value="Casa">Casa</option>
+                <option value="Casa de condomínio">Casa de condomínio</option>
+                <option value="Cobertura">Cobertura</option>
+                <option value="Sala Comercial">Sala Comercial</option>
+                <option value="Lote/Terreno">Lote/Terreno</option>
+                <option value="Studio">Studio</option>
+                <option value="Outro">Outro</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="reg-finalidade">Finalidade</label>
+              <select id="reg-finalidade">
+                <option value="Compra">Venda</option>
+                <option value="Aluguel">Aluguel</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="register-form-row">
+            <div class="filter-group">
+              <label for="reg-cidade">Cidade</label>
+              <input type="text" id="reg-cidade">
+            </div>
+            <div class="filter-group">
+              <label for="reg-bairro">Bairro</label>
+              <input type="text" id="reg-bairro">
+            </div>
+          </div>
+
+          <div class="register-form-row">
+            <div class="filter-group">
+              <label for="reg-preco">Valor pretendido (opcional)</label>
+              <input type="text" id="reg-preco" placeholder="Ex: R$ 500.000,00">
+            </div>
+            <div class="filter-group">
+              <label for="reg-quartos">Quartos / Vagas (opcional)</label>
+              <input type="text" id="reg-quartos" placeholder="Ex: 3 quartos, 2 vagas">
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label for="reg-descricao">Descrição breve (opcional)</label>
+            <textarea id="reg-descricao" rows="3"></textarea>
+          </div>
+
+          <p class="register-form-note">Os dados serão enviados para nossa equipe de corretores, que completará as informações e fotos antes de publicar o imóvel no site.</p>
+
+          <button type="submit" class="modal-cta">
+            Registrar <iconify-icon icon="mdi:send-outline"></iconify-icon>
+          </button>
+        </form>
+
+        <div class="register-success" id="register-success" style="display:none;">
+          <iconify-icon icon="mdi:check-circle-outline"></iconify-icon>
+          <h4 class="serif">Recebemos seu cadastro!</h4>
+          <p>Um de nossos corretores vai analisar as informações e entrar em contato para finalizar o anúncio.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    const imoveis = window.imoveis || [];
+
+    const DEFAULT_BADGES = [
+      { nome: 'Exclusividade', icon: 'lucide:star' },
+      { nome: 'Alto Padrão', icon: 'lucide:crown' },
+      { nome: 'Locação', icon: 'lucide:key-round' },
+      { nome: 'Oportunidade', icon: 'lucide:trending-up' },
+      { nome: 'Comercial', icon: 'lucide:building-2' },
+      { nome: 'Mobiliado', icon: 'lucide:sofa' },
+      { nome: 'Lançamento', icon: 'lucide:rocket' },
+      { nome: 'Frente Mar', icon: 'lucide:waves' },
+      { nome: 'Decorado', icon: 'lucide:badge-check' }
+    ];
+    const customBadges = JSON.parse(localStorage.getItem('custom_badges') || '[]');
+    const ALL_BADGES = [...DEFAULT_BADGES, ...customBadges];
+
+    const AREA_ICON_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" style="vertical-align: -0.2em;"><path d="M0 0h24v24H0z" fill="none" /><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" /><path d="m9 12l2 2l4-4" /></g></svg>';
+    const AREA_TOTAL_ICON_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" style="vertical-align: -0.2em;"><path d="M0 0h24v24H0z" fill="none" /><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" /><rect width="8" height="8" x="8" y="8" rx="1" /></g></svg>';
+    const BATH_ICON_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" style="vertical-align: -0.2em;"><path d="M0 0h24v24H0z" fill="none" /><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M7 12h13a1 1 0 0 1 1 1a5 5 0 0 1-5 5h-.598a.5.5 0 0 0-.424.765l1.544 2.47a.5.5 0 0 1-.424.765H5.402a.5.5 0 0 1-.424-.765L7 18" /><path d="M8 18a5 5 0 0 1-5-5V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8" /></g></svg>';
+
+    function getBathroomCount(imovel) {
+      return Number(imovel.banheiros ?? imovel.suites ?? 0);
+    }
+
+    function buildFeatureItems(imovel) {
+      const items = [];
+      if (imovel.tipo !== 'Sala Comercial') {
+        items.push({ icon: 'mdi:bed-outline', text: `${imovel.quartos || 0} Quartos` });
+        items.push({ icon: 'mdi:shower', text: `${imovel.suites || 0} Suítes` });
+      }
+      items.push({ icon: BATH_ICON_SVG, text: `${getBathroomCount(imovel)} Banheiros` });
+      items.push({ icon: 'mdi:car-outline', text: `${imovel.vagas || 0} Vagas` });
+      const areaUtil = imovel.areaUtil || imovel.area;
+      if (areaUtil) items.push({ icon: AREA_ICON_SVG, text: `${areaUtil} Útil` });
+      if (imovel.areaTotal) items.push({ icon: AREA_TOTAL_ICON_SVG, text: `${imovel.areaTotal} Total` });
+      return items;
+    }
+
+    function renderFeaturesHTML(imovel, wrapClass) {
+      return buildFeatureItems(imovel).map(item => {
+        const iconHTML = item.icon.startsWith('<') ? item.icon : `<iconify-icon icon="${item.icon}"></iconify-icon>`;
+        return wrapClass === 'feature'
+          ? `<div class="feature">${iconHTML} ${item.text}</div>`
+          : `<div class="${wrapClass}">${iconHTML}<span>${item.text}</span></div>`;
+      }).join('');
+    }
+
+    const grid = document.getElementById('properties-grid');
+    const resultsCount = document.getElementById('results-count');
+    const filterTipo = document.getElementById('filter-tipo');
+    const filterFinalidade = document.getElementById('filter-finalidade');
+    const filterBusca = document.getElementById('filter-busca');
+    const filterBanheiros = document.getElementById('filter-banheiros');
+    const filterVagas = document.getElementById('filter-vagas');
+    const filterCaracteristica = document.getElementById('filter-caracteristica');
+    const priceMin = document.getElementById('price-min');
+    const priceMax = document.getElementById('price-max');
+    const modal = document.getElementById('property-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    const modalBody = document.getElementById('modal-body');
+
+    function closeSiteSelects(except = null) {
+      document.querySelectorAll('.site-select.open').forEach(select => {
+        if (select !== except) {
+          select.classList.remove('open');
+          select.querySelector('.site-select-trigger')?.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    function setSiteSelectValue(select, value, label, emitEvent = true) {
+      const input = document.getElementById(select.dataset.select);
+      const labelEl = select.querySelector('[data-select-label]');
+      if (!input || !labelEl) return;
+
+      input.value = value;
+      labelEl.textContent = label;
+      select.querySelectorAll('.site-select-option').forEach(option => {
+        option.classList.toggle('selected', option.dataset.value === value);
+      });
+
+      if (emitEvent) input.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+
+    function syncSiteSelect(inputId, emitEvent = false) {
+      const select = document.querySelector(`.site-select[data-select="${inputId}"]`);
+      const input = document.getElementById(inputId);
+      if (!select || !input) return;
+      const option = select.querySelector(`.site-select-option[data-value="${CSS.escape(input.value)}"]`) || select.querySelector('.site-select-option');
+      if (option) setSiteSelectValue(select, option.dataset.value || '', option.dataset.label || option.textContent.trim(), emitEvent);
+    }
+
+    function initSiteSelects() {
+      document.querySelectorAll('.site-select').forEach(select => {
+        const trigger = select.querySelector('.site-select-trigger');
+        const input = document.getElementById(select.dataset.select);
+        if (!trigger || !input) return;
+
+        trigger.addEventListener('click', () => {
+          const shouldOpen = !select.classList.contains('open');
+          closeSiteSelects(select);
+          select.classList.toggle('open', shouldOpen);
+          trigger.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+        });
+
+        select.addEventListener('click', (event) => {
+          const option = event.target.closest('.site-select-option');
+          if (!option) return;
+          setSiteSelectValue(select, option.dataset.value || '', option.dataset.label || option.textContent.trim());
+          select.classList.remove('open');
+          trigger.setAttribute('aria-expanded', 'false');
+        });
+
+        syncSiteSelect(select.dataset.select, false);
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!event.target.closest('.site-select')) closeSiteSelects();
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeSiteSelects();
+      });
+    }
+
+    function parsePrice(value) {
+      const match = String(value || '').match(/[\d.]+,\d{2}|[\d.]+/);
+      if (!match) return 0;
+      return Number(match[0].replace(/\./g, '').replace(',', '.')) || 0;
+    }
+
+    function formatCurrency(value) {
+      return Number(value || 0).toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+        maximumFractionDigits: 0
+      });
+    }
+
+    function normalizeFinalidade(value) {
+      const normalized = String(value || '').toLowerCase();
+      if (normalized === 'locação' || normalized === 'aluguel') return 'aluguel';
+      if (normalized === 'venda' || normalized === 'compra') return 'compra';
+      if (normalized === 'venda e aluguel') return 'venda e aluguel';
+      return normalized;
+    }
+
+    function matchesFinalidade(imovel, selected) {
+      if (!selected) return true;
+      const value = normalizeFinalidade(imovel.finalidade);
+      const wanted = normalizeFinalidade(selected);
+      if (value === 'venda e aluguel') return wanted === 'compra' || wanted === 'aluguel';
+      return value === wanted;
+    }
+
+    function populateTipoOptions() {
+      const tipos = [...new Set(imoveis.map(imovel => imovel.tipo).filter(Boolean))].sort();
+      const tipoSelect = document.querySelector('.site-select[data-select="filter-tipo"] .site-select-menu');
+      if (!tipoSelect) return;
+      tipos.forEach(tipo => {
+        const option = document.createElement('button');
+        option.type = 'button';
+        option.className = 'site-select-option';
+        option.dataset.value = tipo;
+        option.dataset.label = tipo;
+        option.textContent = tipo;
+        tipoSelect.appendChild(option);
+      });
+    }
+
+    function getBadges(imovel) {
+      return imovel.badges ? imovel.badges : (imovel.badge ? [imovel.badge] : []);
+    }
+
+    function populateCaracteristicaOptions() {
+      const menu = document.querySelector('.site-select[data-select="filter-caracteristica"] .site-select-menu');
+      if (!menu) return;
+
+      const badgesNosImoveis = new Set(imoveis.flatMap(getBadges));
+      const orderedBadges = ALL_BADGES
+        .map(badge => badge.nome)
+        .filter(nome => badgesNosImoveis.has(nome));
+
+      [...new Set(orderedBadges)].forEach(nome => {
+        const option = document.createElement('button');
+        option.type = 'button';
+        option.className = 'site-select-option';
+        option.dataset.value = nome;
+        option.dataset.label = nome;
+        option.textContent = nome;
+        menu.appendChild(option);
+      });
+    }
+
+    function getSearchText(imovel) {
+      return [
+        imovel.id,
+        imovel.nome,
+        imovel.construtora,
+        imovel.localizacao,
+        imovel.tipo,
+        imovel.descricao,
+        imovel.bairro,
+        imovel.cidade,
+        imovel.endereco
+      ].filter(Boolean).join(' ').toLowerCase();
+    }
+
+    function renderCards(data) {
+      grid.innerHTML = '';
+      resultsCount.textContent = `${data.length} ${data.length === 1 ? 'imóvel encontrado' : 'imóveis encontrados'}`;
+
+      if (data.length === 0) {
+        grid.innerHTML = '<div class="no-results">Nenhum imóvel encontrado com os filtros selecionados.</div>';
+        return;
+      }
+
+      data.forEach(imovel => {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        const featuresHTML = renderFeaturesHTML(imovel, 'feature');
+
+        const mainImage = (imovel.imagens && imovel.imagens.length > 0) ? imovel.imagens[0] : imovel.imagem;
+        const badgesArr = imovel.badges ? imovel.badges : (imovel.badge ? [imovel.badge] : []);
+        let badgesHTML = '';
+        if (badgesArr.length > 0) {
+          badgesHTML = '<div class="card-badges">' + badgesArr.map(b => {
+            const bData = ALL_BADGES.find(x => x.nome === b);
+            const icon = bData ? bData.icon : 'lucide:tag';
+            const iconHTML = icon.startsWith('<') ? icon : `<iconify-icon icon="${icon}"></iconify-icon>`;
+            return `<div class="card-badge">${iconHTML} ${b}</div>`;
+          }).join('') + '</div>';
+        }
+
+        card.innerHTML = `
+          <div class="card-img">
+            ${badgesHTML}
+            <img src="${mainImage}" alt="${imovel.nome}" loading="lazy">
+          </div>
+          <div class="card-content">
+            <h4 class="card-title">${imovel.nome} | <span style="font-weight: 300; font-size: 1rem; color: var(--color-taupe);">${imovel.construtora || ''}</span></h4>
+            <div class="card-location">
+              <iconify-icon icon="mdi:map-marker-outline"></iconify-icon>
+              ${imovel.localizacao || ''}
+            </div>
+            <div class="card-price">${imovel.preco || 'Consulte'}</div>
+            <div class="card-features">${featuresHTML}</div>
+            <button class="card-btn" onclick="openModal(${imovel.id})">SAIBA MAIS</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterProperties() {
+      const tipoVal = filterTipo.value.toLowerCase();
+      const finalidadeVal = filterFinalidade.value;
+      const buscaVal = filterBusca.value.trim().toLowerCase();
+      const banheirosVal = Number(filterBanheiros.value || 0);
+      const vagasVal = Number(filterVagas.value || 0);
+      const caracteristicaVal = filterCaracteristica.value;
+      const minVal = Number(priceMin.value || 0);
+      const maxVal = Number(priceMax.value || 0);
+
+      const filtered = imoveis.filter(imovel => {
+        const price = parsePrice(imovel.preco);
+        const matchTipo = !tipoVal || String(imovel.tipo || '').toLowerCase() === tipoVal;
+        const matchFinalidade = matchesFinalidade(imovel, finalidadeVal);
+        const matchBusca = !buscaVal || getSearchText(imovel).includes(buscaVal);
+        const matchBanheiros = !banheirosVal || getBathroomCount(imovel) >= banheirosVal;
+        const matchVagas = !vagasVal || Number(imovel.vagas || 0) >= vagasVal;
+        const matchCaracteristica = !caracteristicaVal || getBadges(imovel).includes(caracteristicaVal);
+        const matchPrice = (!minVal || price >= minVal) && (!maxVal || price <= maxVal);
+        return matchTipo && matchFinalidade && matchBusca && matchBanheiros && matchVagas && matchCaracteristica && matchPrice;
+      });
+
+      renderCards(filtered);
+    }
+
+    function applyQueryParams() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('tipo')) filterTipo.value = params.get('tipo');
+      if (params.get('finalidade')) filterFinalidade.value = params.get('finalidade');
+      if (params.get('busca')) filterBusca.value = params.get('busca');
+      if (params.get('banheiros')) filterBanheiros.value = params.get('banheiros');
+      if (params.get('vagas')) filterVagas.value = params.get('vagas');
+      if (params.get('caracteristica')) filterCaracteristica.value = params.get('caracteristica');
+      if (params.get('precoMin')) priceMin.value = params.get('precoMin');
+      if (params.get('precoMax')) priceMax.value = params.get('precoMax');
+      syncSiteSelect('filter-tipo', false);
+      syncSiteSelect('filter-finalidade', false);
+      syncSiteSelect('filter-banheiros', false);
+      syncSiteSelect('filter-vagas', false);
+      syncSiteSelect('filter-caracteristica', false);
+    }
+
+    [filterTipo, filterFinalidade, filterBusca, filterBanheiros, filterVagas, filterCaracteristica, priceMin, priceMax].forEach(el => {
+      const eventName = el.tagName === 'INPUT' ? 'input' : 'change';
+      el.addEventListener(eventName, filterProperties);
+    });
+    document.getElementById('apply-filters').addEventListener('click', filterProperties);
+    document.getElementById('clear-filters').addEventListener('click', () => {
+      filterTipo.value = '';
+      filterFinalidade.value = '';
+      filterBusca.value = '';
+      filterBanheiros.value = '';
+      filterVagas.value = '';
+      filterCaracteristica.value = '';
+      priceMin.value = '';
+      priceMax.value = '';
+      syncSiteSelect('filter-tipo', false);
+      syncSiteSelect('filter-finalidade', false);
+      syncSiteSelect('filter-banheiros', false);
+      syncSiteSelect('filter-vagas', false);
+      syncSiteSelect('filter-caracteristica', false);
+      filterProperties();
+    });
+
+    let modalGalleryImgs = [];
+    let modalGalleryIndex = 0;
+    let currentModalImovel = null;
+
+    function renderModalGallery() {
+      const mainImg = document.getElementById('modal-main-img');
+      const counter = document.getElementById('modal-gallery-counter');
+      const thumbsWrap = document.getElementById('modal-thumbs');
+      const lightboxImg = document.getElementById('modal-lightbox-img');
+      const lightboxCounter = document.getElementById('modal-lightbox-counter');
+      const lightboxThumbsWrap = document.getElementById('modal-lightbox-thumbs');
+      if (!mainImg || modalGalleryImgs.length === 0) return;
+      mainImg.src = modalGalleryImgs[modalGalleryIndex];
+      if (counter) counter.textContent = `${modalGalleryIndex + 1} / ${modalGalleryImgs.length}`;
+      if (lightboxImg) lightboxImg.src = modalGalleryImgs[modalGalleryIndex];
+      if (lightboxCounter) lightboxCounter.textContent = `${modalGalleryIndex + 1} / ${modalGalleryImgs.length}`;
+      if (thumbsWrap) {
+        Array.from(thumbsWrap.children).forEach((img, i) => img.classList.toggle('active', i === modalGalleryIndex));
+      }
+      if (lightboxThumbsWrap) {
+        Array.from(lightboxThumbsWrap.children).forEach((img, i) => img.classList.toggle('active', i === modalGalleryIndex));
+      }
+    }
+
+    window.setModalGalleryIndex = function(i) {
+      modalGalleryIndex = i;
+      if (modalMapActive) {
+        modalMapActive = false;
+        syncModalMapViews();
+      }
+      renderModalGallery();
+    };
+
+    window.modalGalleryPrev = function() {
+      modalGalleryIndex = (modalGalleryIndex - 1 + modalGalleryImgs.length) % modalGalleryImgs.length;
+      renderModalGallery();
+    };
+
+    window.modalGalleryNext = function() {
+      modalGalleryIndex = (modalGalleryIndex + 1) % modalGalleryImgs.length;
+      renderModalGallery();
+    };
+
+    function buildEnderecoCompleto(imovel) {
+      const partes = [];
+      if (imovel.endereco) partes.push(imovel.endereco + (imovel.numero ? ', ' + imovel.numero : ''));
+      if (imovel.bairro) partes.push(imovel.bairro);
+      if (imovel.cidade) partes.push(imovel.cidade + (imovel.uf ? ' - ' + imovel.uf : ''));
+      return partes.length > 0 ? partes.join(' - ') : (imovel.localizacao || '');
+    }
+
+    function buildMapsUrl(imovel) {
+      const query = [imovel.endereco, imovel.numero, imovel.bairro, imovel.cidade, imovel.uf].filter(Boolean).join(', ') || imovel.localizacao || '';
+      return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query);
+    }
+
+    function buildMapsEmbedUrl(imovel) {
+      const query = [imovel.endereco, imovel.numero, imovel.bairro, imovel.cidade, imovel.uf].filter(Boolean).join(', ') || imovel.localizacao || '';
+      return 'https://www.google.com/maps?q=' + encodeURIComponent(query) + '&output=embed';
+    }
+
+    let modalMapActive = false;
+    let modalMapLoaded = false;
+    let modalLightboxMapLoaded = false;
+
+    function syncModalMapViews() {
+      const photos = document.getElementById('gallery-photos-visual');
+      const mapEl = document.getElementById('gallery-map-visual');
+      const btn = document.getElementById('gallery-map-btn');
+      const counter = document.getElementById('modal-gallery-counter');
+      const loading = document.getElementById('modal-map-loading');
+      const iframe = document.getElementById('modal-map-iframe');
+
+      const lbPhotos = document.getElementById('modal-lightbox-photos');
+      const lbMap = document.getElementById('modal-lightbox-map');
+      const lbControls = document.getElementById('modal-lightbox-controls');
+      const lbIframe = document.getElementById('modal-lightbox-map-iframe');
+      if (!photos || !mapEl || !btn) return;
+
+      if (modalMapActive) {
+        btn.innerHTML = '<iconify-icon icon="mdi:image-multiple-outline"></iconify-icon> Ver Fotos';
+        if (counter) counter.style.display = 'none';
+        photos.classList.remove('active');
+        mapEl.classList.add('active');
+        if (lbPhotos) lbPhotos.classList.remove('active');
+        if (lbMap) lbMap.classList.add('active');
+        if (lbControls) lbControls.style.display = 'none';
+
+        if (!modalMapLoaded && iframe) {
+          if (loading) loading.classList.add('active');
+          iframe.addEventListener('load', function onModalMapLoad() {
+            modalMapLoaded = true;
+            iframe.classList.add('loaded');
+            if (loading) loading.classList.remove('active');
+            iframe.removeEventListener('load', onModalMapLoad);
+          });
+          iframe.src = buildMapsEmbedUrl(currentModalImovel);
+        }
+        if (!modalLightboxMapLoaded && lbIframe) {
+          lbIframe.src = buildMapsEmbedUrl(currentModalImovel);
+          modalLightboxMapLoaded = true;
+        }
+      } else {
+        btn.innerHTML = '<iconify-icon icon="mdi:map-marker-outline"></iconify-icon> Ver no Mapa';
+        if (counter && modalGalleryImgs.length > 1) counter.style.display = '';
+        mapEl.classList.remove('active');
+        photos.classList.add('active');
+        if (lbMap) lbMap.classList.remove('active');
+        if (lbPhotos) lbPhotos.classList.add('active');
+        if (lbControls) lbControls.style.display = modalGalleryImgs.length > 1 ? '' : 'none';
+      }
+    }
+
+    window.toggleModalMap = function() {
+      modalMapActive = !modalMapActive;
+      syncModalMapViews();
+    };
+
+    window.openModalLightbox = function() {
+      const lightbox = document.getElementById('modal-lightbox');
+      if (!lightbox) return;
+      renderModalGallery();
+      syncModalMapViews();
+      lightbox.classList.add('active');
+    };
+
+    window.closeModalLightbox = function() {
+      const lightbox = document.getElementById('modal-lightbox');
+      if (!lightbox) return;
+      lightbox.classList.remove('active');
+    };
+
+    document.addEventListener('keydown', function (e) {
+      const lightbox = document.getElementById('modal-lightbox');
+      if (!lightbox || !lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeModalLightbox();
+      else if (e.key === 'ArrowLeft' && !modalMapActive) modalGalleryPrev();
+      else if (e.key === 'ArrowRight' && !modalMapActive) modalGalleryNext();
+    });
+
+    function renderBadgesHTML(imovel) {
+      const badgesArr = imovel.badges ? imovel.badges : (imovel.badge ? [imovel.badge] : []);
+      if (badgesArr.length === 0) return '';
+      return '<div class="modal-badges">' + badgesArr.map(b => {
+        const bData = ALL_BADGES.find(x => x.nome === b);
+        const icon = bData ? bData.icon : 'lucide:tag';
+        const iconHTML = icon.startsWith('<') ? icon : `<iconify-icon icon="${icon}"></iconify-icon>`;
+        return `<div class="card-badge">${iconHTML} ${b}</div>`;
+      }).join('') + '</div>';
+    }
+
+    function renderTagsBlock(titulo, itens) {
+      if (!itens || itens.length === 0) return '';
+      return `
+        <div class="modal-features-block">
+          <h5>${titulo}</h5>
+          <div class="modal-tags">${itens.map(c => `<span class="modal-tag"><iconify-icon icon="mdi:check-circle-outline"></iconify-icon> ${c}</span>`).join('')}</div>
+        </div>`;
+    }
+
+    window.openModal = function(id) {
+      const imovel = imoveis.find(i => i.id === id);
+      if (!imovel) return;
+
+      currentModalImovel = imovel;
+      modalGalleryImgs = imovel.imagens && imovel.imagens.length > 0 ? imovel.imagens : (imovel.imagem ? [imovel.imagem] : []);
+      modalGalleryIndex = 0;
+      modalMapActive = false;
+      modalMapLoaded = false;
+      modalLightboxMapLoaded = false;
+
+      const whatsappText = encodeURIComponent(`Olá, gostaria de saber mais sobre o imóvel: ${imovel.nome} - ${imovel.localizacao}.`);
+      const youtubeBtn = imovel.youtube ? `<a href="${imovel.youtube}" target="_blank" rel="noopener noreferrer" class="modal-cta" style="background-color: #ff0000;">
+          VER VÍDEO <iconify-icon icon="mdi:youtube" style="font-size: 1.2rem;"></iconify-icon>
+        </a>` : '';
+
+      const galleryNavHTML = modalGalleryImgs.length > 1 ? `
+        <button class="gallery-nav prev" onclick="modalGalleryPrev()" aria-label="Foto anterior"><iconify-icon icon="mdi:chevron-left"></iconify-icon></button>
+        <button class="gallery-nav next" onclick="modalGalleryNext()" aria-label="Próxima foto"><iconify-icon icon="mdi:chevron-right"></iconify-icon></button>
+      ` : '';
+
+      const thumbsHTML = modalGalleryImgs.length > 1 ? `
+        <div class="modal-thumbs" id="modal-thumbs">
+          ${modalGalleryImgs.map((src, i) => `<img src="${src}" class="${i === 0 ? 'active' : ''}" onclick="setModalGalleryIndex(${i})" alt="Miniatura ${i + 1}">`).join('')}
+        </div>` : '';
+
+      const statsHTML = renderFeaturesHTML(imovel, 'modal-stat');
+
+      modalBody.innerHTML = `
+        <div class="gallery-stage" id="gallery-stage">
+          <div class="gallery-photos-visual active" id="gallery-photos-visual">
+            <div class="modal-gallery-main">
+              <img id="modal-main-img" src="${modalGalleryImgs[0] || ''}" alt="${imovel.nome}">
+              ${galleryNavHTML}
+            </div>
+          </div>
+          <div class="gallery-map-visual" id="gallery-map-visual">
+            <div class="gallery-map-loading" id="modal-map-loading">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none" />
+                <g fill="currentColor">
+                  <path fill-opacity="0" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20.5c0 0 -6 -7 -6 -11.5c0 -3.31 2.69 -6 6 -6c3.31 0 6 2.69 6 6c0 4.5 -6 11.5 -6 11.5Z">
+                    <animate fill="freeze" attributeName="d" dur="0.4s" keyTimes="0;0.7;1" values="M12 20.5c0 0 -1 -1.5 -1 -2.5c0 -0.5 0.5 -1 1 -1c0.5 0 1 0.5 1 1c0 1 -1 2.5 -1 2.5Z;M12 20.5c0 0 -7 -7.5 -7 -12.5c0 -3.5 3 -7 7 -7c4 0 7 3.5 7 7c0 5 -7 12.5 -7 12.5Z;M12 20.5c0 0 -6 -7 -6 -11.5c0 -3.31 2.69 -6 6 -6c3.31 0 6 2.69 6 6c0 4.5 -6 11.5 -6 11.5Z" />
+                    <animate fill="freeze" attributeName="fill-opacity" begin="0.4s" dur="0.15s" to=".3" />
+                  </path>
+                  <circle cx="12" cy="9">
+                    <animate fill="freeze" attributeName="r" begin="0.65s" dur="0.2s" to="2.5" />
+                  </circle>
+                </g>
+              </svg>
+              <span>Carregando mapa...</span>
+            </div>
+            <iframe id="modal-map-iframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <div class="gallery-corner" id="gallery-corner">
+            <button type="button" class="gallery-map-btn" id="gallery-map-btn" onclick="toggleModalMap()">
+              <iconify-icon icon="mdi:map-marker-outline"></iconify-icon> Ver no Mapa
+            </button>
+            <span class="gallery-counter" id="modal-gallery-counter" style="${modalGalleryImgs.length > 1 ? '' : 'display:none;'}">1 / ${modalGalleryImgs.length}</span>
+            <button type="button" class="gallery-expand-btn" id="modal-expand-btn" onclick="openModalLightbox()" aria-label="Ampliar">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
+                <path d="M0 0h512v512H0z" fill="none" />
+                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M304 96h112v112m-10.23-101.8L111.98 400.02M208 416H96V304" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        ${thumbsHTML ? `
+        <div class="gallery-subrow" id="gallery-subrow">
+          ${thumbsHTML}
+        </div>` : ''}
+
+        ${renderBadgesHTML(imovel)}
+        <h4>${imovel.nome}</h4>
+        <div class="modal-sub">${imovel.tipo || ''}${imovel.construtora ? ' · ' + imovel.construtora : ''} · ${imovel.finalidade || ''}</div>
+        <div class="modal-location">
+          <iconify-icon icon="mdi:map-marker-outline"></iconify-icon> ${buildEnderecoCompleto(imovel)}
+          <a class="maps-link" href="${buildMapsUrl(imovel)}" target="_blank" rel="noopener noreferrer">Ver no Google Maps <iconify-icon icon="mdi:map-marker-radius-outline"></iconify-icon></a>
+        </div>
+        <div class="modal-price">${imovel.preco || 'Consulte'}</div>
+
+        <div class="modal-stats">
+          ${statsHTML}
+        </div>
+
+        <p class="modal-description">${imovel.descricao || ''}</p>
+
+        ${renderTagsBlock('Características do imóvel', imovel.caracteristicas)}
+        ${renderTagsBlock('Características do condomínio', imovel.caracteristicasCondominio)}
+
+        <div class="modal-actions">
+          <a href="https://wa.me/5547920013095?text=${whatsappText}" target="_blank" rel="noopener noreferrer" class="modal-cta">
+            FALAR COM O CORRETOR <iconify-icon icon="mdi:whatsapp" style="font-size: 1.2rem;"></iconify-icon>
+          </a>
+          ${youtubeBtn}
+        </div>
+
+        <a href="imovel.html?id=${imovel.id}" class="modal-more-btn">
+          MAIS INFORMAÇÕES <iconify-icon icon="mdi:arrow-right"></iconify-icon>
+        </a>
+      `;
+
+      const lightboxThumbsWrap = document.getElementById('modal-lightbox-thumbs');
+      const lightboxControls = document.getElementById('modal-lightbox-controls');
+      const lightboxImg = document.getElementById('modal-lightbox-img');
+      const lightboxCounter = document.getElementById('modal-lightbox-counter');
+      const lightboxMapIframe = document.getElementById('modal-lightbox-map-iframe');
+      if (lightboxImg) lightboxImg.src = modalGalleryImgs[0] || '';
+      if (lightboxCounter) lightboxCounter.textContent = `1 / ${modalGalleryImgs.length}`;
+      if (lightboxMapIframe) lightboxMapIframe.src = '';
+      if (lightboxControls) lightboxControls.style.display = modalGalleryImgs.length > 1 ? '' : 'none';
+      if (lightboxThumbsWrap) {
+        lightboxThumbsWrap.style.display = modalGalleryImgs.length > 1 ? '' : 'none';
+        lightboxThumbsWrap.innerHTML = modalGalleryImgs.length > 1
+          ? modalGalleryImgs.map((src, i) => `<img src="${src}" class="${i === 0 ? 'active' : ''}" onclick="setModalGalleryIndex(${i})" alt="Miniatura ${i + 1}">`).join('')
+          : '';
+      }
+
+      modal.classList.add('active');
+    };
+
+    closeModalBtn.addEventListener('click', () => {
+      modal.classList.remove('active');
+      closeModalLightbox();
+    });
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+        closeModalLightbox();
+      }
+    });
+
+    const registerModal = document.getElementById('register-modal');
+    const openRegisterBtn = document.getElementById('open-register-btn');
+    const closeRegisterModalBtn = document.getElementById('close-register-modal');
+    const registerForm = document.getElementById('register-form');
+    const registerSuccess = document.getElementById('register-success');
+
+    function openRegisterModal() {
+      registerForm.style.display = '';
+      registerSuccess.style.display = 'none';
+      registerModal.classList.add('active');
+    }
+
+    function closeRegisterModal() {
+      registerModal.classList.remove('active');
+    }
+
+    openRegisterBtn.addEventListener('click', openRegisterModal);
+    closeRegisterModalBtn.addEventListener('click', closeRegisterModal);
+    window.addEventListener('click', (e) => {
+      if (e.target === registerModal) closeRegisterModal();
+    });
+
+    registerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const pendente = {
+        pendingId: 'p_' + Date.now(),
+        proprietarioNome: document.getElementById('reg-nome').value.trim(),
+        proprietarioContato: document.getElementById('reg-contato').value.trim(),
+        tipo: document.getElementById('reg-tipo').value,
+        finalidade: document.getElementById('reg-finalidade').value,
+        cidade: document.getElementById('reg-cidade').value.trim(),
+        bairro: document.getElementById('reg-bairro').value.trim(),
+        preco: document.getElementById('reg-preco').value.trim(),
+        quartosVagas: document.getElementById('reg-quartos').value.trim(),
+        descricao: document.getElementById('reg-descricao').value.trim(),
+        criadoEm: new Date().toISOString()
+      };
+
+      const pendentes = JSON.parse(localStorage.getItem('pending_imoveis') || '[]');
+      pendentes.push(pendente);
+      localStorage.setItem('pending_imoveis', JSON.stringify(pendentes));
+
+      registerForm.reset();
+      registerForm.style.display = 'none';
+      registerSuccess.style.display = 'flex';
+    });
+
+    populateTipoOptions();
+    populateCaracteristicaOptions();
+    initSiteSelects();
+    applyQueryParams();
+    filterProperties();
+
+    // Auto-toggle WhatsApp button background
+    document.addEventListener('DOMContentLoaded', () => {
+      const waBtn = document.querySelector('.floating-whatsapp');
+      if (!waBtn) return;
+
+      const checkBackground = () => {
+        const rect = waBtn.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        
+        const elements = document.elementsFromPoint(x, y);
+        let isDarkBackground = false;
+        
+        for (const el of elements) {
+          if (el.tagName === 'FOOTER' || el.classList.contains('hero') || el.classList.contains('search-hero') || el.classList.contains('modal')) {
+            isDarkBackground = true;
+            break;
+          }
+        }
+        
+        if (isDarkBackground) {
+          waBtn.classList.remove('dark-whatsapp');
+        } else {
+          waBtn.classList.add('dark-whatsapp');
+        }
+      };
+
+      window.addEventListener('scroll', () => requestAnimationFrame(checkBackground), { passive: true });
+      window.addEventListener('resize', () => requestAnimationFrame(checkBackground), { passive: true });
+      setTimeout(checkBackground, 100);
+    });
+  </script>
+</body>
+</html>
