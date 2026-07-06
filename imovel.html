@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#141311" media="(prefers-color-scheme: dark)">
+  <title id="page-title">Imóvel | JM Imóveis</title>
+  <meta name="description" id="page-description" content="Detalhes do imóvel na JM Imóveis.">
+  <link rel="icon" type="image/svg+xml" href="img/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    :root {
+      --color-pearl: #FAF8F5;
+      --color-leather: #262626;
+      --color-taupe: #A3968D;
+      --color-khaki: #DFDACF;
+      --color-surface: #fff;
+      --color-text-muted: #444;
+      --color-footer-bg: #262626;
+      --color-footer-text: #FAF8F5;
+      --header-bg: rgba(250, 248, 245, 0.34);
+      --header-border: rgba(223, 218, 207, 0.42);
+      --shadow-soft: 0 14px 30px rgba(38, 38, 38, 0.06);
+      --gallery-control-bg: rgba(255, 255, 255, 0.86);
+      --whatsapp-bg: rgba(250, 248, 245, 0.96);
+      --whatsapp-text: #262626;
+      --whatsapp-icon: #25D366;
+      --whatsapp-border: rgba(38, 38, 38, 0.08);
+      --whatsapp-shadow: 0 8px 24px rgba(38, 38, 38, 0.12);
+      --whatsapp-hover-shadow: 0 12px 30px rgba(38, 38, 38, 0.18);
+      --whatsapp-contrast-bg: rgba(38, 38, 38, 0.94);
+      --whatsapp-contrast-text: #FAF8F5;
+      --whatsapp-contrast-border: rgba(223, 218, 207, 0.18);
+      --font-main: 'Montserrat', sans-serif;
+      --font-serif: 'Playfair Display', serif;
+      --transition: all 0.3s ease;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color-scheme: dark;
+        --color-pearl: #141311;
+        --color-leather: #F3EEE7;
+        --color-taupe: #BAAA9D;
+        --color-khaki: #3A352F;
+        --color-surface: #1D1A17;
+        --color-text-muted: #D2C7BD;
+        --color-footer-bg: #0F0E0D;
+        --color-footer-text: #F3EEE7;
+        --header-bg: rgba(20, 19, 17, 0.62);
+        --header-border: rgba(186, 170, 157, 0.28);
+        --shadow-soft: 0 14px 30px rgba(0, 0, 0, 0.32);
+        --gallery-control-bg: rgba(29, 26, 23, 0.88);
+        --whatsapp-bg: rgba(29, 26, 23, 0.94);
+        --whatsapp-text: #F3EEE7;
+        --whatsapp-icon: #44E07A;
+        --whatsapp-border: rgba(186, 170, 157, 0.28);
+        --whatsapp-shadow: 0 10px 28px rgba(0, 0, 0, 0.42);
+        --whatsapp-hover-shadow: 0 14px 34px rgba(0, 0, 0, 0.5);
+        --whatsapp-contrast-bg: rgba(20, 19, 17, 0.96);
+        --whatsapp-contrast-text: #F3EEE7;
+        --whatsapp-contrast-border: rgba(186, 170, 157, 0.34);
+      }
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+      overscroll-behavior: none;
+      background-color: var(--color-pearl);
+    }
+    body { font-family: var(--font-main); background-color: var(--color-pearl); color: var(--color-leather); line-height: 1.6; overscroll-behavior: none; transition: background-color 0.45s ease, color 0.45s ease; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; height: auto; display: block; }
+    .serif { font-family: var(--font-serif); }
+
+    header {
+      position: fixed; top: 16px; left: 50%; width: min(1180px, calc(100% - 40px));
+      transform: translate3d(-50%, 0, 0);
+      background-color: var(--header-bg);
+      backdrop-filter: blur(12px) saturate(125%);
+      -webkit-backdrop-filter: blur(12px) saturate(125%);
+      z-index: 1000;
+      border: 1px solid var(--header-border);
+      border-radius: 999px;
+      padding: 0.9rem 1.35rem;
+      box-shadow: var(--shadow-soft);
+      backface-visibility: hidden; contain: layout paint; isolation: isolate; will-change: transform;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo {
+      font-size: 2.2rem; font-family: var(--font-serif);
+      font-weight: 700; display: flex; align-items: center; justify-content: center; line-height: 1;
+      width: 52px; height: 52px; border-radius: 50%; color: var(--color-leather); transition: var(--transition);
+    }
+    .logo:hover {
+      background-color: var(--color-leather);
+      color: var(--color-pearl);
+    }
+    .logo svg {
+      height: 0.55em; width: auto; fill: currentColor; transition: var(--transition);
+    }
+    nav { display: flex; gap: 0.6rem; width: 100%; justify-content: flex-end; }
+    nav a {
+      font-weight: 500; font-size: 0.9rem; text-transform: uppercase;
+      letter-spacing: 1px; transition: var(--transition); color: var(--color-leather);
+      padding: 0.65rem 1rem; border-radius: 999px;
+    }
+    nav a:hover,
+    nav a:focus-visible {
+      color: var(--color-pearl);
+      background-color: var(--color-leather);
+      box-shadow: none;
+    }
+
+    .gallery-wrap { width: min(900px, 90%); margin: 0 auto; padding-top: 130px; }
+
+    .gallery-stage { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; background: var(--color-khaki); }
+    .gallery-photos-visual, .gallery-map-visual {
+      position: absolute; inset: 0;
+      opacity: 0; transform: scale(0.96); pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .gallery-photos-visual.active, .gallery-map-visual.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+    .gallery-main { position: relative; width: 100%; height: 100%; }
+    .gallery-main img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery-nav {
+      position: absolute; top: 50%; transform: translateY(-50%); background: var(--gallery-control-bg);
+      border: none; width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1.5rem; color: var(--color-leather); transition: var(--transition);
+    }
+    .gallery-nav:hover { background: var(--color-surface); }
+    .gallery-nav.prev { left: 16px; }
+    .gallery-nav.next { right: 16px; }
+
+    .gallery-corner { position: absolute; bottom: 16px; right: 16px; display: flex; align-items: center; gap: 8px; z-index: 3; }
+    .gallery-counter { background: var(--gallery-control-bg); color: var(--color-leather); padding: 5px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; }
+    .gallery-map-btn {
+      display: flex; align-items: center; gap: 6px; border: none; background: var(--gallery-control-bg);
+      color: var(--color-leather); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.3px;
+      padding: 7px 14px; border-radius: 999px; cursor: pointer; transition: var(--transition);
+    }
+    .gallery-map-btn:hover { background: var(--color-khaki); }
+    .gallery-map-btn iconify-icon { font-size: 1rem; }
+    .gallery-expand-btn {
+      display: flex; align-items: center; justify-content: center; border: none; background: var(--gallery-control-bg);
+      color: var(--color-leather); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; transition: var(--transition); font-size: 1rem;
+    }
+    .gallery-expand-btn:hover { background: var(--color-khaki); }
+    .gallery-expand-btn svg { width: 1em; height: 1em; display: block; }
+
+    .lightbox {
+      position: fixed; inset: 0; background: #0c0b09; z-index: 2000;
+      display: flex; align-items: center; justify-content: center; padding: 60px;
+      opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
+    }
+    .lightbox.active { opacity: 1; pointer-events: auto; }
+    .lightbox-close {
+      position: absolute; top: 24px; right: 24px; width: 44px; height: 44px; border-radius: 50%;
+      border: none; background: rgba(255,255,255,0.12); color: #fff; font-size: 1.4rem;
+      display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition); z-index: 2;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .lightbox-content {
+      position: relative; width: 100%; height: 100%; max-width: 1400px;
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+    }
+    .lightbox-stage { position: relative; width: 100%; flex: 1; min-height: 0; }
+    .lightbox-photos, .lightbox-map {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: scale(0.96); pointer-events: none; transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .lightbox-photos.active, .lightbox-map.active { opacity: 1; transform: scale(1); }
+    .lightbox.active .lightbox-photos.active, .lightbox.active .lightbox-map.active { pointer-events: auto; }
+    .lightbox-photos img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 12px; }
+    .lightbox-map iframe { width: 100%; height: 100%; border: 0; border-radius: 12px; }
+    .lightbox-controls { display: flex; align-items: center; justify-content: center; gap: 18px; flex-shrink: 0; }
+    .lightbox-nav {
+      background: rgba(255,255,255,0.12); border: none; width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1.5rem; color: #fff; transition: var(--transition);
+    }
+    .lightbox-nav:hover { background: rgba(255,255,255,0.25); }
+    .lightbox-counter {
+      color: #fff; font-size: 0.85rem; background: rgba(255,255,255,0.12); padding: 6px 16px; border-radius: 999px;
+    }
+    .lightbox-thumbs {
+      display: flex; gap: 8px; overflow-x: auto; max-width: 100%; padding: 2px 2px 6px; flex-shrink: 0; justify-content: safe center;
+    }
+    .lightbox-thumbs img {
+      width: 70px; height: 54px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid transparent;
+      opacity: 0.55; transition: var(--transition); flex-shrink: 0;
+    }
+    .lightbox-thumbs img.active { opacity: 1; border-color: #fff; }
+    @media (max-width: 768px) {
+      .lightbox { padding: 20px 12px; }
+      .lightbox-nav { width: 38px; height: 38px; font-size: 1.3rem; }
+      .lightbox-close { top: 12px; right: 12px; }
+      .lightbox-thumbs img { width: 56px; height: 44px; }
+    }
+
+    /* Scrollbar moderna para as faixas de miniaturas */
+    .gallery-thumbs, .lightbox-thumbs {
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-taupe) transparent;
+    }
+    .gallery-thumbs::-webkit-scrollbar, .lightbox-thumbs::-webkit-scrollbar { height: 6px; }
+    .gallery-thumbs::-webkit-scrollbar-track, .lightbox-thumbs::-webkit-scrollbar-track { background: transparent; }
+    .gallery-thumbs::-webkit-scrollbar-thumb, .lightbox-thumbs::-webkit-scrollbar-thumb {
+      background-color: var(--color-taupe); border-radius: 999px;
+    }
+
+    .gallery-map-visual { background: var(--color-khaki); }
+    .gallery-map-visual iframe { width: 100%; height: 100%; border: 0; display: block; opacity: 0; transition: opacity 0.6s ease; }
+    .gallery-map-visual iframe.loaded { opacity: 1; }
+    .gallery-map-loading {
+      position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 10px; color: var(--color-leather); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 2;
+    }
+    .gallery-map-loading.active { opacity: 1; }
+    .gallery-map-loading svg { width: 2.6em; height: 2.6em; }
+    .gallery-map-loading span { font-size: 0.8rem; letter-spacing: 0.4px; color: var(--color-taupe); }
+
+    /* Faixa de miniaturas abaixo da foto principal: sempre centralizada e visível */
+    .gallery-subrow { margin-top: 10px; }
+    .gallery-thumbs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; justify-content: safe center; }
+    .gallery-thumbs img { width: 90px; height: 70px; object-fit: cover; border-radius: 10px; cursor: pointer; border: 2px solid transparent; opacity: 0.6; transition: var(--transition); flex-shrink: 0; }
+    .gallery-thumbs img.active { opacity: 1; border-color: var(--color-leather); }
+
+    .property-body { width: min(900px, 90%); margin: 2.5rem auto 100px; }
+    .property-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+    .property-badge {
+      background-color: var(--color-leather); color: var(--color-khaki); padding: 6px 14px; font-size: 0.8rem; font-weight: 600;
+      border-radius: 999px; display: flex; align-items: center; gap: 6px;
+    }
+    .property-badge iconify-icon, .property-badge svg { font-size: 1.05rem; color: var(--color-khaki); }
+    .property-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-family: var(--font-serif); margin-bottom: 0.4rem; }
+    .property-sub { color: var(--color-taupe); font-weight: 500; margin-bottom: 1rem; }
+    .property-location { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 1.75rem; font-size: 1rem; }
+    .property-location iconify-icon { color: var(--color-taupe); }
+    .maps-link {
+      display: inline-flex; align-items: center; gap: 6px; color: var(--color-leather);
+      text-decoration: underline; font-size: 0.9rem; font-weight: 600; margin-left: 6px;
+    }
+    .property-price { font-size: clamp(1.8rem, 3vw, 2.2rem); font-family: var(--font-serif); font-weight: 600; margin-bottom: 2rem; }
+    .property-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem 1rem;
+      border-top: 1px solid var(--color-khaki); border-bottom: 1px solid var(--color-khaki);
+      padding: 1.5rem 0; margin-bottom: 2.5rem;
+    }
+    .property-stat { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+    .property-stat iconify-icon, .property-stat svg { font-size: 1.7rem; color: var(--color-taupe); }
+    .property-stat span { font-size: 0.9rem; }
+    .property-section { margin-bottom: 2.5rem; }
+    .property-section h3 { font-size: 1.3rem; margin-bottom: 1rem; font-family: var(--font-serif); }
+    .property-description { color: var(--color-text-muted); line-height: 1.9; }
+    .property-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .property-tag {
+      background: var(--color-surface); border: 1px solid var(--color-khaki); padding: 8px 16px; border-radius: 999px;
+      font-size: 0.9rem; display: flex; align-items: center; gap: 8px;
+    }
+    .property-tag iconify-icon { color: #27ae60; font-size: 1.1rem; }
+    .video-frame { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 14px; overflow: hidden; }
+    .video-frame iframe { width: 100%; height: 100%; border: none; }
+    .property-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 2.5rem; }
+    .btn-cta {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      background-color: var(--color-leather); color: var(--color-khaki);
+      padding: 16px 32px; border-radius: 50px; font-weight: 500; font-size: 0.9rem;
+      text-transform: uppercase; letter-spacing: 1px; transition: var(--transition);
+    }
+    .btn-cta:hover { background-color: var(--color-taupe); color: #fff; }
+    .btn-cta.youtube { background-color: #ff0000; color: #fff; }
+    .btn-cta iconify-icon { font-size: 1.3rem; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--color-taupe); font-size: 0.85rem; margin-top: 2rem; }
+    .back-link:hover { color: var(--color-leather); }
+
+    .not-found { text-align: center; padding: 220px 5% 120px; }
+    .not-found h1 { font-size: 2.2rem; margin-bottom: 1rem; }
+    .not-found p { color: var(--color-taupe); margin-bottom: 2rem; }
+
+    footer { background-color: var(--color-footer-bg); color: var(--color-footer-text); padding: 45px 5%; text-align: center; }
+    footer a { color: var(--color-khaki); }
+
+    .floating-whatsapp {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      background-color: var(--whatsapp-bg);
+      color: var(--whatsapp-icon);
+      height: 60px;
+      border-radius: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 14px;
+      font-size: 2rem;
+      box-shadow: var(--whatsapp-shadow);
+      z-index: 1000;
+      transition: all 0.4s ease;
+      text-decoration: none;
+      overflow: hidden;
+      border: 1px solid var(--whatsapp-border);
+      backdrop-filter: blur(12px) saturate(125%);
+      -webkit-backdrop-filter: blur(12px) saturate(125%);
+    }
+
+    .whatsapp-text {
+      max-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      opacity: 0;
+      transition: all 0.4s ease;
+      font-family: var(--font-main);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--whatsapp-text);
+    }
+
+    .floating-whatsapp:hover {
+      box-shadow: var(--whatsapp-hover-shadow);
+      padding: 0 20px;
+    }
+
+    .floating-whatsapp:hover .whatsapp-text {
+      max-width: 200px;
+      opacity: 1;
+      margin-left: 10px;
+    }
+
+    .floating-whatsapp.dark-whatsapp {
+      background-color: var(--whatsapp-contrast-bg);
+      border-color: var(--whatsapp-contrast-border);
+    }
+
+    .floating-whatsapp.dark-whatsapp .whatsapp-text {
+      color: var(--whatsapp-contrast-text);
+    }
+
+    @media (max-width: 768px) {
+      header { top: 12px; width: calc(100% - 24px); padding: 0.8rem 1rem; }
+      nav { justify-content: flex-end; gap: 1rem; }
+      nav a { font-size: 0.8rem; }
+      .property-stats { grid-template-columns: repeat(2, 1fr); }
+      .floating-whatsapp { bottom: 20px; right: 20px; height: 50px; padding: 0 13px; font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">
+      <svg viewBox="0 0 892 606" xmlns="http://www.w3.org/2000/svg">
+        <path d="M392.119 323.865V218.745L592.739 377.121L791.179 213.529L791.909 603.924C792.639 605.744 797.879 605.864 842.159 605.624H891.549V0.534287C891.549 0.322236 891.302 0.206492 891.139 0.342371L592.739 249.405C592.129 249.405 315.359 22.51 287.499 0V223.245C286.889 424.345 286.769 434.084 284.579 441.624C277.039 467.904 261.219 486.884 237.129 498.684C230.439 502.094 221.549 505.624 217.539 506.714C205.859 509.884 186.509 510.364 173.739 507.934C141.859 501.974 119.229 485.674 104.999 458.544L98.7992 446.504L0 465.001C0 483.861 16.5392 521.444 39.0492 544.564C74.2092 580.584 117.399 599.434 174.339 603.574C241.619 608.434 300.509 588.854 342.359 547.484C356.709 533.244 365.469 521.564 373.259 506.114C383.599 485.554 388.829 466.704 390.899 442.854C391.509 435.064 392.119 382.265 392.119 323.865Z"/>
+      </svg>
+    </a>
+    <nav>
+      <a href="busca.html">Buscar</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+  </header>
+
+  <main id="property-main">
+    <!-- Conteúdo renderizado via JS -->
+  </main>
+
+  <footer>
+    <p>JM Imóveis | <a href="https://wa.me/5547920013095" target="_blank" rel="noopener noreferrer">Fale pelo WhatsApp</a></p>
+  </footer>
+
+  <a href="https://wa.me/5547920013095" class="floating-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+    <iconify-icon icon="mdi:whatsapp"></iconify-icon>
+    <span class="whatsapp-text">Fale com o corretor</span>
+  </a>
+
+  <script src="data.js"></script>
+  <script>
+    const imoveis = window.imoveis || [];
+
+    const DEFAULT_BADGES = [
+      { nome: 'Exclusividade', icon: 'lucide:star' },
+      { nome: 'Alto Padrão', icon: 'lucide:crown' },
+      { nome: 'Locação', icon: 'lucide:key-round' },
+      { nome: 'Oportunidade', icon: 'lucide:trending-up' },
+      { nome: 'Comercial', icon: 'lucide:building-2' },
+      { nome: 'Mobiliado', icon: 'lucide:sofa' },
+      { nome: 'Lançamento', icon: 'lucide:rocket' },
+      { nome: 'Frente Mar', icon: 'lucide:waves' },
+      { nome: 'Decorado', icon: 'lucide:badge-check' }
+    ];
+    const customBadges = JSON.parse(localStorage.getItem('custom_badges') || '[]');
+    const ALL_BADGES = [...DEFAULT_BADGES, ...customBadges];
+
+    const AREA_ICON_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" style="vertical-align: -0.2em;"><path d="M0 0h24v24H0z" fill="none"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3a2 2 0 0 0-2 2m16-2a2 2 0 0 1 2 2m0 14a2 2 0 0 1-2 2M5 21a2 2 0 0 1-2-2M9 3h1M9 21h1m4-18h1m-1 18h1M3 9v1m18-1v1M3 14v1m18-1v1"/></svg>';
+
+    function buildFeatureItems(imovel) {
+      const items = [];
+      if (imovel.tipo !== 'Sala Comercial') {
+        items.push({ icon: 'mdi:bed-outline', text: `${imovel.quartos || 0} Quartos` });
+        items.push({ icon: 'mdi:shower', text: `${imovel.suites || 0} Suítes` });
+      }
+      items.push({ icon: 'mdi:toilet', text: `${imovel.banheiros || 0} Banheiros` });
+      items.push({ icon: 'mdi:car-outline', text: `${imovel.vagas || 0} Vagas` });
+      const areaUtil = imovel.areaUtil || imovel.area;
+      if (areaUtil) items.push({ icon: AREA_ICON_SVG, text: `${areaUtil} Útil` });
+      if (imovel.areaTotal) items.push({ icon: 'mdi:arrow-expand-all', text: `${imovel.areaTotal} Total` });
+      return items;
+    }
+
+    function renderFeaturesHTML(imovel, wrapClass) {
+      return buildFeatureItems(imovel).map(item => {
+        const iconHTML = item.icon.startsWith('<') ? item.icon : `<iconify-icon icon="${item.icon}"></iconify-icon>`;
+        return wrapClass === 'feature'
+          ? `<div class="feature">${iconHTML} ${item.text}</div>`
+          : `<div class="${wrapClass}">${iconHTML}<span>${item.text}</span></div>`;
+      }).join('');
+    }
+
+    const main = document.getElementById('property-main');
+    const params = new URLSearchParams(window.location.search);
+    const id = Number(params.get('id'));
+    const imovel = imoveis.find(i => i.id === id);
+
+    let galleryImgs = [];
+    let galleryIndex = 0;
+
+    function renderGallery() {
+      const mainImg = document.getElementById('gallery-main-img');
+      const counter = document.getElementById('gallery-counter');
+      const thumbsWrap = document.getElementById('gallery-thumbs');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxCounter = document.getElementById('lightbox-counter');
+      const lightboxThumbsWrap = document.getElementById('lightbox-thumbs');
+      if (!mainImg || galleryImgs.length === 0) return;
+      mainImg.src = galleryImgs[galleryIndex];
+      if (counter) counter.textContent = `${galleryIndex + 1} / ${galleryImgs.length}`;
+      if (lightboxImg) lightboxImg.src = galleryImgs[galleryIndex];
+      if (lightboxCounter) lightboxCounter.textContent = `${galleryIndex + 1} / ${galleryImgs.length}`;
+      if (thumbsWrap) {
+        Array.from(thumbsWrap.children).forEach((img, i) => img.classList.toggle('active', i === galleryIndex));
+      }
+      if (lightboxThumbsWrap) {
+        Array.from(lightboxThumbsWrap.children).forEach((img, i) => img.classList.toggle('active', i === galleryIndex));
+      }
+    }
+
+    window.setGalleryIndex = function (i) {
+      galleryIndex = i;
+      if (galleryMapActive) {
+        galleryMapActive = false;
+        syncMapViews();
+      }
+      renderGallery();
+    };
+
+    window.galleryPrev = function () {
+      galleryIndex = (galleryIndex - 1 + galleryImgs.length) % galleryImgs.length;
+      renderGallery();
+    };
+
+    window.galleryNext = function () {
+      galleryIndex = (galleryIndex + 1) % galleryImgs.length;
+      renderGallery();
+    };
+
+    function buildEnderecoCompleto(imovel) {
+      const partes = [];
+      if (imovel.endereco) partes.push(imovel.endereco + (imovel.numero ? ', ' + imovel.numero : ''));
+      if (imovel.bairro) partes.push(imovel.bairro);
+      if (imovel.cidade) partes.push(imovel.cidade + (imovel.uf ? ' - ' + imovel.uf : ''));
+      return partes.length > 0 ? partes.join(' - ') : (imovel.localizacao || '');
+    }
+
+    function buildMapsUrl(imovel) {
+      const query = [imovel.endereco, imovel.numero, imovel.bairro, imovel.cidade, imovel.uf].filter(Boolean).join(', ') || imovel.localizacao || '';
+      return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query);
+    }
+
+    function buildMapsEmbedUrl(imovel) {
+      const query = [imovel.endereco, imovel.numero, imovel.bairro, imovel.cidade, imovel.uf].filter(Boolean).join(', ') || imovel.localizacao || '';
+      return 'https://www.google.com/maps?q=' + encodeURIComponent(query) + '&output=embed';
+    }
+
+    let galleryMapActive = false;
+    let galleryMapLoaded = false;
+    let lightboxMapLoaded = false;
+
+    function syncMapViews() {
+      const photos = document.getElementById('gallery-photos-visual');
+      const mapEl = document.getElementById('gallery-map-visual');
+      const btn = document.getElementById('gallery-map-btn');
+      const counter = document.getElementById('gallery-counter');
+      const loading = document.getElementById('gallery-map-loading');
+      const iframe = document.getElementById('gallery-map-iframe');
+
+      const lbPhotos = document.getElementById('lightbox-photos');
+      const lbMap = document.getElementById('lightbox-map');
+      const lbControls = document.getElementById('lightbox-controls');
+      const lbIframe = document.getElementById('lightbox-map-iframe');
+
+      if (galleryMapActive) {
+        if (btn) btn.innerHTML = '<iconify-icon icon="mdi:image-multiple-outline"></iconify-icon> Ver Fotos';
+        if (counter) counter.style.display = 'none';
+        if (photos) photos.classList.remove('active');
+        if (mapEl) mapEl.classList.add('active');
+        if (lbPhotos) lbPhotos.classList.remove('active');
+        if (lbMap) lbMap.classList.add('active');
+        if (lbControls) lbControls.style.display = 'none';
+
+        if (!galleryMapLoaded && iframe) {
+          if (loading) loading.classList.add('active');
+          iframe.addEventListener('load', function onGalleryMapLoad() {
+            galleryMapLoaded = true;
+            iframe.classList.add('loaded');
+            if (loading) loading.classList.remove('active');
+            iframe.removeEventListener('load', onGalleryMapLoad);
+          });
+          iframe.src = buildMapsEmbedUrl(imovel);
+        }
+        if (!lightboxMapLoaded && lbIframe) {
+          lbIframe.src = buildMapsEmbedUrl(imovel);
+          lightboxMapLoaded = true;
+        }
+      } else {
+        if (btn) btn.innerHTML = '<iconify-icon icon="mdi:map-marker-outline"></iconify-icon> Ver no Mapa';
+        if (counter && galleryImgs.length > 1) counter.style.display = '';
+        if (mapEl) mapEl.classList.remove('active');
+        if (photos) photos.classList.add('active');
+        if (lbMap) lbMap.classList.remove('active');
+        if (lbPhotos) lbPhotos.classList.add('active');
+        if (lbControls) lbControls.style.display = '';
+      }
+    }
+
+    window.toggleGalleryMap = function () {
+      galleryMapActive = !galleryMapActive;
+      syncMapViews();
+    };
+
+    window.openLightbox = function () {
+      const lightbox = document.getElementById('gallery-lightbox');
+      if (!lightbox) return;
+
+      renderGallery();
+      syncMapViews();
+
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      const header = document.querySelector('header');
+      if (header) header.style.visibility = 'hidden';
+    };
+
+    window.closeLightbox = function () {
+      const lightbox = document.getElementById('gallery-lightbox');
+      if (!lightbox) return;
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+      const header = document.querySelector('header');
+      if (header) header.style.visibility = '';
+    };
+
+    document.addEventListener('keydown', function (e) {
+      const lightbox = document.getElementById('gallery-lightbox');
+      if (!lightbox || !lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowLeft' && !galleryMapActive) galleryPrev();
+      else if (e.key === 'ArrowRight' && !galleryMapActive) galleryNext();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const waBtn = document.querySelector('.floating-whatsapp');
+      if (!waBtn) return;
+
+      const checkBackground = () => {
+        const rect = waBtn.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        const elements = document.elementsFromPoint(x, y);
+        const isDarkBackground = elements.some(el => el.tagName === 'FOOTER' || el.classList.contains('modal') || el.classList.contains('lightbox'));
+
+        waBtn.classList.toggle('dark-whatsapp', !isDarkBackground);
+      };
+
+      window.addEventListener('scroll', () => requestAnimationFrame(checkBackground), { passive: true });
+      window.addEventListener('resize', () => requestAnimationFrame(checkBackground), { passive: true });
+      setTimeout(checkBackground, 100);
+    });
+
+    function youtubeEmbedUrl(url) {
+      const match = String(url || '').match(/(?:v=|youtu\.be\/|embed\/)([\w-]{11})/);
+      return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+    }
+
+    function renderBadgesHTML(imovel) {
+      const badgesArr = imovel.badges ? imovel.badges : (imovel.badge ? [imovel.badge] : []);
+      if (badgesArr.length === 0) return '';
+      return '<div class="property-badges">' + badgesArr.map(b => {
+        const bData = ALL_BADGES.find(x => x.nome === b);
+        const icon = bData ? bData.icon : 'lucide:tag';
+        const iconHTML = icon.startsWith('<') ? icon : `<iconify-icon icon="${icon}"></iconify-icon>`;
+        return `<div class="property-badge">${iconHTML} ${b}</div>`;
+      }).join('') + '</div>';
+    }
+
+    function renderTagsSection(titulo, itens) {
+      if (!itens || itens.length === 0) return '';
+      return `
+        <div class="property-section">
+          <h3>${titulo}</h3>
+          <div class="property-tags">${itens.map(c => `<span class="property-tag"><iconify-icon icon="mdi:check-circle-outline"></iconify-icon> ${c}</span>`).join('')}</div>
+        </div>`;
+    }
+
+    if (!imovel) {
+      document.title = 'Imóvel não encontrado | JM Imóveis';
+      main.innerHTML = `
+        <div class="not-found">
+          <h1 class="serif">Imóvel não encontrado</h1>
+          <p>Este imóvel não existe mais ou foi removido do catálogo.</p>
+          <a href="busca.html" class="btn-cta">VER TODOS OS IMÓVEIS <iconify-icon icon="mdi:home-search-outline"></iconify-icon></a>
+        </div>
+      `;
+    } else {
+      document.getElementById('page-title').textContent = imovel.nome + ' | JM Imóveis';
+      document.getElementById('page-description').setAttribute('content', (imovel.descricao || imovel.nome || '').slice(0, 155));
+
+      galleryImgs = imovel.imagens && imovel.imagens.length > 0 ? imovel.imagens : (imovel.imagem ? [imovel.imagem] : []);
+      galleryIndex = 0;
+
+      const galleryNavHTML = galleryImgs.length > 1 ? `
+        <button class="gallery-nav prev" onclick="galleryPrev()" aria-label="Foto anterior"><iconify-icon icon="mdi:chevron-left"></iconify-icon></button>
+        <button class="gallery-nav next" onclick="galleryNext()" aria-label="Próxima foto"><iconify-icon icon="mdi:chevron-right"></iconify-icon></button>
+      ` : '';
+
+      const thumbsHTML = galleryImgs.length > 1 ? `
+        <div class="gallery-thumbs" id="gallery-thumbs">
+          ${galleryImgs.map((src, i) => `<img src="${src}" class="${i === 0 ? 'active' : ''}" onclick="setGalleryIndex(${i})" alt="Miniatura ${i + 1}">`).join('')}
+        </div>` : '';
+
+      const lightboxControlsHTML = galleryImgs.length > 1 ? `
+        <div class="lightbox-thumbs" id="lightbox-thumbs">
+          ${galleryImgs.map((src, i) => `<img src="${src}" class="${i === 0 ? 'active' : ''}" onclick="setGalleryIndex(${i})" alt="Miniatura ${i + 1}">`).join('')}
+        </div>
+        <div class="lightbox-controls" id="lightbox-controls">
+          <button type="button" class="lightbox-nav prev" onclick="galleryPrev()" aria-label="Foto anterior"><iconify-icon icon="mdi:chevron-left"></iconify-icon></button>
+          <span class="lightbox-counter" id="lightbox-counter">1 / ${galleryImgs.length}</span>
+          <button type="button" class="lightbox-nav next" onclick="galleryNext()" aria-label="Próxima foto"><iconify-icon icon="mdi:chevron-right"></iconify-icon></button>
+        </div>` : '';
+
+      galleryMapActive = false;
+      galleryMapLoaded = false;
+      lightboxMapLoaded = false;
+
+      const statsHTML = renderFeaturesHTML(imovel, 'property-stat');
+
+      const whatsappText = encodeURIComponent(`Olá, gostaria de saber mais sobre o imóvel: ${imovel.nome} - ${imovel.localizacao}.`);
+      const embedUrl = youtubeEmbedUrl(imovel.youtube);
+      const videoSectionHTML = embedUrl ? `
+        <div class="property-section">
+          <h3>Vídeo</h3>
+          <div class="video-frame"><iframe src="${embedUrl}" title="Vídeo do imóvel" allowfullscreen loading="lazy"></iframe></div>
+        </div>` : '';
+
+      main.innerHTML = `
+        <div class="gallery-wrap">
+          <div class="gallery-stage" id="gallery-stage">
+            <div class="gallery-photos-visual active" id="gallery-photos-visual">
+              <div class="gallery-main">
+                <img id="gallery-main-img" src="${galleryImgs[0] || ''}" alt="${imovel.nome}">
+                ${galleryNavHTML}
+              </div>
+            </div>
+            <div class="gallery-map-visual" id="gallery-map-visual">
+              <div class="gallery-map-loading" id="gallery-map-loading">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                  <path d="M0 0h24v24H0z" fill="none" />
+                  <g fill="currentColor">
+                    <path fill-opacity="0" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20.5c0 0 -6 -7 -6 -11.5c0 -3.31 2.69 -6 6 -6c3.31 0 6 2.69 6 6c0 4.5 -6 11.5 -6 11.5Z">
+                      <animate fill="freeze" attributeName="d" dur="0.4s" keyTimes="0;0.7;1" values="M12 20.5c0 0 -1 -1.5 -1 -2.5c0 -0.5 0.5 -1 1 -1c0.5 0 1 0.5 1 1c0 1 -1 2.5 -1 2.5Z;M12 20.5c0 0 -7 -7.5 -7 -12.5c0 -3.5 3 -7 7 -7c4 0 7 3.5 7 7c0 5 -7 12.5 -7 12.5Z;M12 20.5c0 0 -6 -7 -6 -11.5c0 -3.31 2.69 -6 6 -6c3.31 0 6 2.69 6 6c0 4.5 -6 11.5 -6 11.5Z" />
+                      <animate fill="freeze" attributeName="fill-opacity" begin="0.4s" dur="0.15s" to=".3" />
+                    </path>
+                    <circle cx="12" cy="9">
+                      <animate fill="freeze" attributeName="r" begin="0.65s" dur="0.2s" to="2.5" />
+                    </circle>
+                  </g>
+                </svg>
+                <span>Carregando mapa...</span>
+              </div>
+              <iframe id="gallery-map-iframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="gallery-corner" id="gallery-corner">
+              <button type="button" class="gallery-map-btn" id="gallery-map-btn" onclick="toggleGalleryMap()">
+                <iconify-icon icon="mdi:map-marker-outline"></iconify-icon> Ver no Mapa
+              </button>
+              <span class="gallery-counter" id="gallery-counter" style="${galleryImgs.length > 1 ? '' : 'display:none;'}">1 / ${galleryImgs.length}</span>
+              <button type="button" class="gallery-expand-btn" id="gallery-expand-btn" onclick="openLightbox()" aria-label="Ampliar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
+                  <path d="M0 0h512v512H0z" fill="none" />
+                  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M304 96h112v112m-10.23-101.8L111.98 400.02M208 416H96V304" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          ${thumbsHTML ? `
+          <div class="gallery-subrow" id="gallery-subrow">
+            ${thumbsHTML}
+          </div>` : ''}
+        </div>
+
+        <div class="lightbox" id="gallery-lightbox" onclick="if (event.target === this) closeLightbox()">
+          <button type="button" class="lightbox-close" onclick="closeLightbox()" aria-label="Fechar"><iconify-icon icon="mdi:close"></iconify-icon></button>
+          <div class="lightbox-content">
+            <div class="lightbox-stage">
+              <div class="lightbox-photos active" id="lightbox-photos">
+                <img id="lightbox-img" src="${galleryImgs[0] || ''}" alt="${imovel.nome}">
+              </div>
+              <div class="lightbox-map" id="lightbox-map">
+                <iframe id="lightbox-map-iframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            </div>
+            ${lightboxControlsHTML}
+          </div>
+        </div>
+
+        <div class="property-body">
+          ${renderBadgesHTML(imovel)}
+          <h1 class="property-title">${imovel.nome}</h1>
+          <div class="property-sub">${imovel.tipo || ''}${imovel.construtora ? ' · ' + imovel.construtora : ''} · ${imovel.finalidade || ''}</div>
+          <div class="property-location">
+            <iconify-icon icon="mdi:map-marker-outline"></iconify-icon> ${buildEnderecoCompleto(imovel)}
+            <a class="maps-link" href="${buildMapsUrl(imovel)}" target="_blank" rel="noopener noreferrer">Ver no Google Maps <iconify-icon icon="mdi:map-marker-radius-outline"></iconify-icon></a>
+          </div>
+          <div class="property-price">${imovel.preco || 'Consulte'}</div>
+
+          <div class="property-stats">
+            ${statsHTML}
+          </div>
+
+          <div class="property-section">
+            <h3>Sobre o imóvel</h3>
+            <p class="property-description">${imovel.descricao || ''}</p>
+          </div>
+
+          ${renderTagsSection('Características do imóvel', imovel.caracteristicas)}
+          ${renderTagsSection('Características do condomínio', imovel.caracteristicasCondominio)}
+          ${videoSectionHTML}
+
+          <div class="property-actions">
+            <a href="https://wa.me/5547920013095?text=${whatsappText}" target="_blank" rel="noopener noreferrer" class="btn-cta">
+              FALAR COM O CORRETOR <iconify-icon icon="mdi:whatsapp"></iconify-icon>
+            </a>
+            <a href="${buildMapsUrl(imovel)}" target="_blank" rel="noopener noreferrer" class="btn-cta" style="background: transparent; color: var(--color-leather); border: 1px solid var(--color-leather);">
+              VER NO GOOGLE MAPS <iconify-icon icon="mdi:map-marker-radius-outline"></iconify-icon>
+            </a>
+          </div>
+
+          <a href="busca.html" class="back-link"><iconify-icon icon="mdi:arrow-left"></iconify-icon> Voltar para todos os imóveis</a>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
