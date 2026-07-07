@@ -138,6 +138,10 @@
 
     .gallery-corner { position: absolute; bottom: 16px; right: 16px; display: flex; align-items: center; gap: 8px; z-index: 3; }
     .gallery-counter { background: var(--gallery-control-bg); color: var(--color-leather); padding: 5px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; }
+    .gallery-tag {
+      display: flex; align-items: center; background: var(--gallery-control-bg); color: var(--color-leather);
+      padding: 5px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 600;
+    }
     .gallery-map-btn {
       display: flex; align-items: center; gap: 6px; border: none; background: var(--gallery-control-bg);
       color: var(--color-leather); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.3px;
@@ -186,6 +190,11 @@
     .lightbox-nav:hover { background: rgba(255,255,255,0.25); }
     .lightbox-counter {
       color: #fff; font-size: 0.85rem; background: rgba(255,255,255,0.12); padding: 6px 16px; border-radius: 999px;
+    }
+    .lightbox-tag {
+      color: #fff; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.3px;
+      background: rgba(255,255,255,0.12); padding: 6px 16px; border-radius: 999px;
+      width: fit-content; margin: 0 auto; flex-shrink: 0;
     }
     .lightbox-thumbs {
       display: flex; gap: 8px; overflow-x: auto; max-width: 100%; padding: 2px 2px 6px; flex-shrink: 0; justify-content: safe center;
@@ -257,6 +266,10 @@
     .property-section { margin-bottom: 2.5rem; }
     .property-section h3 { font-size: 1.3rem; margin-bottom: 1rem; font-family: var(--font-serif); }
     .property-description { color: var(--color-text-muted); line-height: 1.9; }
+    .property-description p { margin: 0 0 1em; }
+    .property-description p:last-child { margin-bottom: 0; }
+    .property-description mark.jm-highlight { background: var(--color-khaki); color: var(--color-leather); padding: 0 3px; border-radius: 3px; }
+    .property-description iconify-icon { vertical-align: -0.15em; margin: 0 1px; }
     .property-tags { display: flex; flex-wrap: wrap; gap: 10px; }
     .property-tag {
       background: var(--color-surface); border: 1px solid var(--color-khaki); padding: 8px 16px; border-radius: 999px;
@@ -375,7 +388,7 @@
     <span class="whatsapp-text">Fale com o corretor</span>
   </a>
 
-  <script src="data.js"></script>
+  <script>document.write('<script src="data.js?v=' + Date.now() + '"><\/script>');</script>
   <script>
     const imoveis = window.imoveis || [];
 
@@ -424,7 +437,21 @@
     const imovel = imoveis.find(i => i.id === id);
 
     let galleryImgs = [];
+    let galleryTags = [];
     let galleryIndex = 0;
+
+    function updateGalleryTagUI() {
+      const tag = galleryTags[galleryIndex] || '';
+      const cornerTag = document.getElementById('gallery-tag');
+      const cornerTagText = document.getElementById('gallery-tag-text');
+      const lbTag = document.getElementById('lightbox-tag');
+      if (cornerTagText) cornerTagText.textContent = tag;
+      if (cornerTag) cornerTag.style.display = tag ? '' : 'none';
+      if (lbTag) {
+        lbTag.textContent = tag;
+        lbTag.style.display = tag ? '' : 'none';
+      }
+    }
 
     function renderGallery() {
       const mainImg = document.getElementById('gallery-main-img');
@@ -444,6 +471,7 @@
       if (lightboxThumbsWrap) {
         Array.from(lightboxThumbsWrap.children).forEach((img, i) => img.classList.toggle('active', i === galleryIndex));
       }
+      if (!galleryMapActive) updateGalleryTagUI();
     }
 
     window.setGalleryIndex = function (i) {
@@ -500,9 +528,14 @@
       const lbControls = document.getElementById('lightbox-controls');
       const lbIframe = document.getElementById('lightbox-map-iframe');
 
+      const cornerTag = document.getElementById('gallery-tag');
+      const lbTag = document.getElementById('lightbox-tag');
+
       if (galleryMapActive) {
         if (btn) btn.innerHTML = '<iconify-icon icon="mdi:image-multiple-outline"></iconify-icon> Ver Fotos';
         if (counter) counter.style.display = 'none';
+        if (cornerTag) cornerTag.style.display = 'none';
+        if (lbTag) lbTag.style.display = 'none';
         if (photos) photos.classList.remove('active');
         if (mapEl) mapEl.classList.add('active');
         if (lbPhotos) lbPhotos.classList.remove('active');
@@ -526,6 +559,7 @@
       } else {
         if (btn) btn.innerHTML = '<iconify-icon icon="mdi:map-marker-outline"></iconify-icon> Ver no Mapa';
         if (counter && galleryImgs.length > 1) counter.style.display = '';
+        updateGalleryTagUI();
         if (mapEl) mapEl.classList.remove('active');
         if (photos) photos.classList.add('active');
         if (lbMap) lbMap.classList.remove('active');
@@ -627,6 +661,7 @@
       document.getElementById('page-description').setAttribute('content', (imovel.descricao || imovel.nome || '').slice(0, 155));
 
       galleryImgs = imovel.imagens && imovel.imagens.length > 0 ? imovel.imagens : (imovel.imagem ? [imovel.imagem] : []);
+      galleryTags = galleryImgs.map((_, i) => (imovel.fotosComodos && imovel.fotosComodos[i]) || '');
       galleryIndex = 0;
 
       const galleryNavHTML = galleryImgs.length > 1 ? `
@@ -694,6 +729,9 @@
               <button type="button" class="gallery-map-btn" id="gallery-map-btn" onclick="toggleGalleryMap()">
                 <iconify-icon icon="mdi:map-marker-outline"></iconify-icon> Ver no Mapa
               </button>
+              <span class="gallery-tag" id="gallery-tag" style="${galleryTags[0] ? '' : 'display:none;'}">
+                <span id="gallery-tag-text">${galleryTags[0] || ''}</span>
+              </span>
               <span class="gallery-counter" id="gallery-counter" style="${galleryImgs.length > 1 ? '' : 'display:none;'}">1 / ${galleryImgs.length}</span>
               <button type="button" class="gallery-expand-btn" id="gallery-expand-btn" onclick="openLightbox()" aria-label="Ampliar">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
@@ -720,6 +758,7 @@
                 <iframe id="lightbox-map-iframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
               </div>
             </div>
+            <div class="lightbox-tag" id="lightbox-tag" style="${galleryTags[0] ? '' : 'display:none;'}">${galleryTags[0] || ''}</div>
             ${lightboxControlsHTML}
           </div>
         </div>
@@ -740,7 +779,7 @@
 
           <div class="property-section">
             <h3>Sobre o imóvel</h3>
-            <p class="property-description">${imovel.descricao || ''}</p>
+            <div class="property-description">${imovel.descricao || ''}</div>
           </div>
 
           ${renderTagsSection('Características do imóvel', imovel.caracteristicas)}
