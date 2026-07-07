@@ -1,6 +1,7 @@
 window.imoveis = [
   {
     id: 1,
+    isDefault: true,
     nome: "Alameda Jardins",
     construtora: "FG",
     localizacao: "Centro, Balneário Camboriú",
@@ -19,6 +20,7 @@ window.imoveis = [
   },
   {
     id: 2,
+    isDefault: true,
     nome: "Ocean View",
     construtora: "Embraed",
     localizacao: "Barra Sul, Balneário Camboriú",
@@ -37,6 +39,7 @@ window.imoveis = [
   },
   {
     id: 3,
+    isDefault: true,
     nome: "Residencial Marbella",
     construtora: "Silva & Silva",
     localizacao: "Pioneiros, Balneário Camboriú",
@@ -55,6 +58,7 @@ window.imoveis = [
   },
   {
     id: 4,
+    isDefault: true,
     nome: "Casa Alphaville",
     construtora: "Particular",
     localizacao: "Alphaville, Camboriú",
@@ -73,6 +77,7 @@ window.imoveis = [
   },
   {
     id: 5,
+    isDefault: true,
     nome: "Corporate Tower",
     construtora: "FG",
     localizacao: "Centro, Balneário Camboriú",
@@ -91,6 +96,7 @@ window.imoveis = [
   },
   {
     id: 6,
+    isDefault: true,
     nome: "Brava Arts",
     construtora: "Lotisa",
     localizacao: "Praia Brava, Itajaí",
@@ -109,6 +115,7 @@ window.imoveis = [
   },
   {
     id: 7,
+    isDefault: true,
     nome: "Mansion Horizon",
     construtora: "Pasqualotto&GT",
     localizacao: "Barra Sul, Balneário Camboriú",
@@ -131,6 +138,7 @@ window.imoveis = [
   },
   {
     id: 8,
+    isDefault: true,
     nome: "Reserva da Brava",
     construtora: "PROCAVE",
     localizacao: "Praia Brava, Itajaí",
@@ -153,6 +161,7 @@ window.imoveis = [
   },
   {
     id: 9,
+    isDefault: true,
     nome: "Villa Toscana",
     construtora: "Particular",
     localizacao: "Estaleiro, Balneário Camboriú",
@@ -176,6 +185,7 @@ window.imoveis = [
   },
   {
     id: 10,
+    isDefault: true,
     nome: "Sky Garden Corporate",
     construtora: "FG",
     localizacao: "Centro, Balneário Camboriú",
@@ -198,6 +208,7 @@ window.imoveis = [
   },
   {
     id: 11,
+    isDefault: true,
     nome: "Península Resort",
     construtora: "Embraed",
     localizacao: "Barra Sul, Balneário Camboriú",
@@ -220,6 +231,7 @@ window.imoveis = [
   },
   {
     id: 12,
+    isDefault: true,
     nome: "Acqua Infinity",
     construtora: "Cechinel",
     localizacao: "Barra Norte, Balneário Camboriú",
