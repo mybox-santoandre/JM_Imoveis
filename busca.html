@@ -527,20 +527,36 @@
       background: var(--color-pearl); padding: 2.5rem; max-width: 780px; max-height: 88vh; overflow-y: auto; width: 100%;
       position: relative; border: 1px solid var(--color-khaki); transform: translateY(20px); transition: transform 0.3s ease;
       border-radius: 20px;
+      scrollbar-width: none;
     }
+    .modal-content::-webkit-scrollbar { width: 0; height: 0; }
     .modal.active .modal-content { transform: translateY(0); }
+    .close-modal-wrap { position: sticky; top: 0; height: 0; z-index: 5; }
     .close-modal {
-      position: absolute; top: 20px; right: 20px; background: none; border: none;
-      font-size: 2rem; cursor: pointer; color: var(--color-leather); line-height: 1; z-index: 5;
+      position: absolute; top: 20px; right: 20px; background: var(--color-pearl); border: none;
+      width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 2px 10px rgba(38,38,38,0.12);
+      font-size: 1.6rem; cursor: pointer; color: var(--color-leather); line-height: 1;
+      display: flex; align-items: center; justify-content: center;
     }
     .modal-body h4 { font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 0.4rem; color: var(--color-leather); }
     .modal-body p { margin-bottom: 1.5rem; color: var(--color-text-muted); }
+    .modal-description mark.jm-highlight { background: var(--color-khaki); color: var(--color-leather); padding: 0 3px; border-radius: 3px; }
+    .modal-description iconify-icon { vertical-align: -0.15em; margin: 0 1px; }
     .modal-cta {
       display: flex; align-items: center; justify-content: center; width: 100%; gap: 10px; background: var(--color-leather);
       color: var(--color-khaki); padding: 14px; text-transform: uppercase; font-weight: 500;
       letter-spacing: 1px; font-size: 0.85rem; transition: var(--transition); border-radius: 10px;
     }
     .modal-cta:hover { background: var(--color-taupe); color: #fff; }
+
+    .modal-cta-video {
+      display: flex; align-items: center; justify-content: center; width: 100%; gap: 8px;
+      background: transparent; color: var(--color-leather); border: 1px solid var(--color-khaki);
+      padding: 13px 20px; text-transform: uppercase; font-weight: 500;
+      letter-spacing: 1px; font-size: 0.8rem; transition: var(--transition); border-radius: 10px;
+    }
+    .modal-cta-video iconify-icon { font-size: 1.05rem; color: var(--color-leather); }
+    .modal-cta-video:hover { border-color: var(--color-leather); background: var(--color-khaki); }
 
     /* Galeria grande do modal */
     .gallery-stage { position: relative; width: 100%; aspect-ratio: 16 / 10; border-radius: 14px; overflow: hidden; background: var(--color-khaki); margin-bottom: 10px; }
@@ -563,6 +579,10 @@
 
     .gallery-corner { position: absolute; bottom: 12px; right: 12px; display: flex; align-items: center; gap: 6px; z-index: 3; }
     .gallery-counter { background: var(--gallery-control-bg); color: var(--color-leather); padding: 4px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+    .gallery-tag {
+      display: flex; align-items: center; background: var(--gallery-control-bg); color: var(--color-leather);
+      padding: 4px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 600;
+    }
     .gallery-map-btn {
       display: flex; align-items: center; gap: 6px; border: none; background: var(--gallery-control-bg);
       color: var(--color-leather); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.3px;
@@ -630,6 +650,11 @@
     .lightbox-counter {
       color: #fff; font-size: 0.85rem; background: rgba(255,255,255,0.12); padding: 6px 16px; border-radius: 999px;
     }
+    .lightbox-tag {
+      color: #fff; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.3px;
+      background: rgba(255,255,255,0.12); padding: 6px 16px; border-radius: 999px;
+      width: fit-content; margin: 0 auto; flex-shrink: 0;
+    }
     .lightbox-thumbs {
       display: flex; gap: 8px; overflow-x: auto; max-width: 100%; padding: 2px 2px 6px; flex-shrink: 0; justify-content: safe center;
     }
@@ -645,14 +670,14 @@
       .lightbox-thumbs img { width: 56px; height: 44px; }
     }
 
-    /* Scrollbar moderna para dialogs e faixas de miniaturas */
-    .modal-content, .modal-thumbs, .lightbox-thumbs {
+    /* Scrollbar moderna para faixas de miniaturas */
+    .modal-thumbs, .lightbox-thumbs {
       scrollbar-width: thin;
       scrollbar-color: var(--color-taupe) transparent;
     }
-    .modal-content::-webkit-scrollbar, .modal-thumbs::-webkit-scrollbar, .lightbox-thumbs::-webkit-scrollbar { width: 8px; height: 6px; }
-    .modal-content::-webkit-scrollbar-track, .modal-thumbs::-webkit-scrollbar-track, .lightbox-thumbs::-webkit-scrollbar-track { background: transparent; }
-    .modal-content::-webkit-scrollbar-thumb, .modal-thumbs::-webkit-scrollbar-thumb, .lightbox-thumbs::-webkit-scrollbar-thumb {
+    .modal-thumbs::-webkit-scrollbar, .lightbox-thumbs::-webkit-scrollbar { width: 8px; height: 6px; }
+    .modal-thumbs::-webkit-scrollbar-track, .lightbox-thumbs::-webkit-scrollbar-track { background: transparent; }
+    .modal-thumbs::-webkit-scrollbar-thumb, .lightbox-thumbs::-webkit-scrollbar-thumb {
       background-color: var(--color-taupe); border-radius: 999px;
     }
 
@@ -867,7 +892,9 @@
 
   <div class="modal" id="property-modal">
     <div class="modal-content">
-      <button class="close-modal" id="close-modal">&times;</button>
+      <div class="close-modal-wrap">
+        <button class="close-modal" id="close-modal">&times;</button>
+      </div>
       <div class="modal-body" id="modal-body"></div>
     </div>
     <div class="lightbox" id="modal-lightbox" onclick="if (event.target === this) closeModalLightbox()">
@@ -881,6 +908,7 @@
             <iframe id="modal-lightbox-map-iframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
+        <div class="lightbox-tag" id="modal-lightbox-tag" style="display:none;"></div>
         <div class="lightbox-thumbs" id="modal-lightbox-thumbs"></div>
         <div class="lightbox-controls" id="modal-lightbox-controls">
           <button type="button" class="lightbox-nav prev" onclick="modalGalleryPrev()" aria-label="Foto anterior"><iconify-icon icon="mdi:chevron-left"></iconify-icon></button>
@@ -976,7 +1004,7 @@
     </div>
   </div>
 
-  <script src="data.js"></script>
+  <script>document.write('<script src="data.js?v=' + Date.now() + '"><\/script>');</script>
   <script>
     const imoveis = window.imoveis || [];
 
@@ -1298,8 +1326,22 @@
     });
 
     let modalGalleryImgs = [];
+    let modalGalleryTags = [];
     let modalGalleryIndex = 0;
     let currentModalImovel = null;
+
+    function updateModalGalleryTagUI() {
+      const tag = modalGalleryTags[modalGalleryIndex] || '';
+      const cornerTag = document.getElementById('modal-gallery-tag');
+      const cornerTagText = document.getElementById('modal-gallery-tag-text');
+      const lbTag = document.getElementById('modal-lightbox-tag');
+      if (cornerTagText) cornerTagText.textContent = tag;
+      if (cornerTag) cornerTag.style.display = tag ? '' : 'none';
+      if (lbTag) {
+        lbTag.textContent = tag;
+        lbTag.style.display = tag ? '' : 'none';
+      }
+    }
 
     function renderModalGallery() {
       const mainImg = document.getElementById('modal-main-img');
@@ -1319,6 +1361,7 @@
       if (lightboxThumbsWrap) {
         Array.from(lightboxThumbsWrap.children).forEach((img, i) => img.classList.toggle('active', i === modalGalleryIndex));
       }
+      if (!modalMapActive) updateModalGalleryTagUI();
     }
 
     window.setModalGalleryIndex = function(i) {
@@ -1376,9 +1419,14 @@
       const lbIframe = document.getElementById('modal-lightbox-map-iframe');
       if (!photos || !mapEl || !btn) return;
 
+      const cornerTag = document.getElementById('modal-gallery-tag');
+      const lbTag = document.getElementById('modal-lightbox-tag');
+
       if (modalMapActive) {
         btn.innerHTML = '<iconify-icon icon="mdi:image-multiple-outline"></iconify-icon> Ver Fotos';
         if (counter) counter.style.display = 'none';
+        if (cornerTag) cornerTag.style.display = 'none';
+        if (lbTag) lbTag.style.display = 'none';
         photos.classList.remove('active');
         mapEl.classList.add('active');
         if (lbPhotos) lbPhotos.classList.remove('active');
@@ -1402,6 +1450,7 @@
       } else {
         btn.innerHTML = '<iconify-icon icon="mdi:map-marker-outline"></iconify-icon> Ver no Mapa';
         if (counter && modalGalleryImgs.length > 1) counter.style.display = '';
+        updateModalGalleryTagUI();
         mapEl.classList.remove('active');
         photos.classList.add('active');
         if (lbMap) lbMap.classList.remove('active');
@@ -1463,14 +1512,15 @@
 
       currentModalImovel = imovel;
       modalGalleryImgs = imovel.imagens && imovel.imagens.length > 0 ? imovel.imagens : (imovel.imagem ? [imovel.imagem] : []);
+      modalGalleryTags = modalGalleryImgs.map((_, i) => (imovel.fotosComodos && imovel.fotosComodos[i]) || '');
       modalGalleryIndex = 0;
       modalMapActive = false;
       modalMapLoaded = false;
       modalLightboxMapLoaded = false;
 
       const whatsappText = encodeURIComponent(`Olá, gostaria de saber mais sobre o imóvel: ${imovel.nome} - ${imovel.localizacao}.`);
-      const youtubeBtn = imovel.youtube ? `<a href="${imovel.youtube}" target="_blank" rel="noopener noreferrer" class="modal-cta" style="background-color: #ff0000;">
-          VER VÍDEO <iconify-icon icon="mdi:youtube" style="font-size: 1.2rem;"></iconify-icon>
+      const youtubeBtn = imovel.youtube ? `<a href="${imovel.youtube}" target="_blank" rel="noopener noreferrer" class="modal-cta-video">
+          <iconify-icon icon="mdi:youtube"></iconify-icon> Ver vídeo
         </a>` : '';
 
       const galleryNavHTML = modalGalleryImgs.length > 1 ? `
@@ -1515,6 +1565,9 @@
             <button type="button" class="gallery-map-btn" id="gallery-map-btn" onclick="toggleModalMap()">
               <iconify-icon icon="mdi:map-marker-outline"></iconify-icon> Ver no Mapa
             </button>
+            <span class="gallery-tag" id="modal-gallery-tag" style="${modalGalleryTags[0] ? '' : 'display:none;'}">
+              <span id="modal-gallery-tag-text">${modalGalleryTags[0] || ''}</span>
+            </span>
             <span class="gallery-counter" id="modal-gallery-counter" style="${modalGalleryImgs.length > 1 ? '' : 'display:none;'}">1 / ${modalGalleryImgs.length}</span>
             <button type="button" class="gallery-expand-btn" id="modal-expand-btn" onclick="openModalLightbox()" aria-label="Ampliar">
               <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
@@ -1542,7 +1595,7 @@
           ${statsHTML}
         </div>
 
-        <p class="modal-description">${imovel.descricao || ''}</p>
+        <div class="modal-description">${imovel.descricao || ''}</div>
 
         ${renderTagsBlock('Características do imóvel', imovel.caracteristicas)}
         ${renderTagsBlock('Características do condomínio', imovel.caracteristicasCondominio)}
