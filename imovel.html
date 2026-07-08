@@ -72,7 +72,16 @@
       overscroll-behavior: none;
       background-color: var(--color-pearl);
     }
-    body { font-family: var(--font-main); background-color: var(--color-pearl); color: var(--color-leather); line-height: 1.6; overscroll-behavior: none; transition: background-color 0.45s ease, color 0.45s ease; }
+    body { font-family: var(--font-main); background-color: var(--color-pearl); color: var(--color-leather); line-height: 1.6; overscroll-behavior: none; animation: page-enter 0.45s ease both; transition: background-color 0.45s ease, color 0.45s ease; }
+    body.page-leaving { opacity: 0; transition: opacity 0.35s ease; }
+    @keyframes page-enter {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body { animation: none; }
+      body.page-leaving { transition: none; }
+    }
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; height: auto; display: block; }
     .serif { font-family: var(--font-serif); }
@@ -119,18 +128,19 @@
     .gallery-wrap { width: min(900px, 90%); margin: 0 auto; padding-top: 130px; }
 
     .gallery-stage { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; background: var(--color-khaki); }
-    .gallery-photos-visual, .gallery-map-visual {
+    .gallery-photos-visual, .gallery-map-visual, .gallery-video-visual {
       position: absolute; inset: 0;
       opacity: 0; transform: scale(0.96); pointer-events: none;
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
-    .gallery-photos-visual.active, .gallery-map-visual.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+    .gallery-photos-visual.active, .gallery-map-visual.active, .gallery-video-visual.active { opacity: 1; transform: scale(1); pointer-events: auto; }
     .gallery-main { position: relative; width: 100%; height: 100%; }
-    .gallery-main img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery-main img:not(.watermark) { width: 100%; height: 100%; object-fit: cover; }
     .gallery-nav {
       position: absolute; top: 50%; transform: translateY(-50%); background: var(--gallery-control-bg);
       border: none; width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
       cursor: pointer; font-size: 1.5rem; color: var(--color-leather); transition: var(--transition);
+      z-index: 10;
     }
     .gallery-nav:hover { background: var(--color-surface); }
     .gallery-nav.prev { left: 16px; }
@@ -142,16 +152,20 @@
       display: flex; align-items: center; background: var(--gallery-control-bg); color: var(--color-leather);
       padding: 5px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 600;
     }
-    .gallery-map-btn {
-      display: flex; align-items: center; gap: 6px; border: none; background: var(--gallery-control-bg);
+
+    /* Barra de controles entre a foto e as miniaturas */
+    .gallery-toolbar { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+    .gallery-toolbar-buttons { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .gallery-tool-btn {
+      display: flex; align-items: center; gap: 6px; border: 1px solid var(--color-khaki); background: var(--color-surface);
       color: var(--color-leather); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.3px;
-      padding: 7px 14px; border-radius: 999px; cursor: pointer; transition: var(--transition);
+      padding: 9px 16px; border-radius: 999px; cursor: pointer; transition: var(--transition);
     }
-    .gallery-map-btn:hover { background: var(--color-khaki); }
-    .gallery-map-btn iconify-icon { font-size: 1rem; }
+    .gallery-tool-btn:hover { background: var(--color-khaki); }
+    .gallery-tool-btn iconify-icon { font-size: 1rem; }
     .gallery-expand-btn {
-      display: flex; align-items: center; justify-content: center; border: none; background: var(--gallery-control-bg);
-      color: var(--color-leather); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; transition: var(--transition); font-size: 1rem;
+      display: flex; align-items: center; justify-content: center; border: 1px solid var(--color-khaki); background: var(--color-surface);
+      color: var(--color-leather); width: 38px; height: 38px; border-radius: 50%; cursor: pointer; transition: var(--transition); font-size: 1rem; flex-shrink: 0;
     }
     .gallery-expand-btn:hover { background: var(--color-khaki); }
     .gallery-expand-btn svg { width: 1em; height: 1em; display: block; }
@@ -173,14 +187,20 @@
       display: flex; flex-direction: column; align-items: center; gap: 14px;
     }
     .lightbox-stage { position: relative; width: 100%; flex: 1; min-height: 0; }
-    .lightbox-photos, .lightbox-map {
+    .lightbox-photos, .lightbox-map, .lightbox-video {
       position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
       opacity: 0; transform: scale(0.96); pointer-events: none; transition: opacity 0.4s ease, transform 0.4s ease;
     }
-    .lightbox-photos.active, .lightbox-map.active { opacity: 1; transform: scale(1); }
-    .lightbox.active .lightbox-photos.active, .lightbox.active .lightbox-map.active { pointer-events: auto; }
-    .lightbox-photos img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 12px; }
-    .lightbox-map iframe { width: 100%; height: 100%; border: 0; border-radius: 12px; }
+    .lightbox-photos.active, .lightbox-map.active, .lightbox-video.active { opacity: 1; transform: scale(1); }
+    .lightbox.active .lightbox-photos.active, .lightbox.active .lightbox-map.active, .lightbox.active .lightbox-video.active { pointer-events: auto; }
+    .lightbox-img-wrapper {
+      position: relative;
+      display: flex;
+      max-width: 100%;
+      max-height: 100%;
+    }
+    .lightbox-img-wrapper img:not(.watermark) { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 12px; }
+    .lightbox-map iframe, .lightbox-video iframe { width: 100%; height: 100%; border: 0; border-radius: 12px; }
     .lightbox-controls { display: flex; align-items: center; justify-content: center; gap: 18px; flex-shrink: 0; }
     .lightbox-nav {
       background: rgba(255,255,255,0.12); border: none; width: 44px; height: 44px; border-radius: 50%;
@@ -222,9 +242,9 @@
       background-color: var(--color-taupe); border-radius: 999px;
     }
 
-    .gallery-map-visual { background: var(--color-khaki); }
-    .gallery-map-visual iframe { width: 100%; height: 100%; border: 0; display: block; opacity: 0; transition: opacity 0.6s ease; }
-    .gallery-map-visual iframe.loaded { opacity: 1; }
+    .gallery-map-visual, .gallery-video-visual { background: var(--color-khaki); }
+    .gallery-map-visual iframe, .gallery-video-visual iframe { width: 100%; height: 100%; border: 0; display: block; opacity: 0; transition: opacity 0.6s ease; }
+    .gallery-map-visual iframe.loaded, .gallery-video-visual iframe.loaded { opacity: 1; }
     .gallery-map-loading {
       position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
       gap: 10px; color: var(--color-leather); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 2;
@@ -276,8 +296,6 @@
       font-size: 0.9rem; display: flex; align-items: center; gap: 8px;
     }
     .property-tag iconify-icon { color: #27ae60; font-size: 1.1rem; }
-    .video-frame { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 14px; overflow: hidden; }
-    .video-frame iframe { width: 100%; height: 100%; border: none; }
     .property-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 2.5rem; }
     .btn-cta {
       display: inline-flex; align-items: center; justify-content: center; gap: 10px;
@@ -298,10 +316,18 @@
     footer { background-color: var(--color-footer-bg); color: var(--color-footer-text); padding: 45px 5%; text-align: center; }
     footer a { color: var(--color-khaki); }
 
-    .floating-whatsapp {
+    .floating-actions {
       position: fixed;
       bottom: 40px;
       right: 40px;
+      z-index: 1000;
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+      flex-direction: row-reverse;
+    }
+
+    .floating-whatsapp, .floating-share {
       background-color: var(--whatsapp-bg);
       color: var(--whatsapp-icon);
       height: 60px;
@@ -312,16 +338,25 @@
       padding: 0 14px;
       font-size: 2rem;
       box-shadow: var(--whatsapp-shadow);
-      z-index: 1000;
       transition: all 0.4s ease;
       text-decoration: none;
       overflow: hidden;
       border: 1px solid var(--whatsapp-border);
       backdrop-filter: blur(12px) saturate(125%);
       -webkit-backdrop-filter: blur(12px) saturate(125%);
+      cursor: pointer;
     }
 
-    .whatsapp-text {
+    .floating-share {
+      color: var(--color-leather);
+    }
+
+    .floating-share svg {
+      width: 1em; height: 1em;
+      flex-shrink: 0;
+    }
+
+    .whatsapp-text, .share-text {
       max-width: 0;
       overflow: hidden;
       white-space: nowrap;
@@ -333,24 +368,56 @@
       color: var(--whatsapp-text);
     }
 
-    .floating-whatsapp:hover {
+    .floating-whatsapp:hover, .floating-share:hover, .floating-share.copied {
       box-shadow: var(--whatsapp-hover-shadow);
       padding: 0 20px;
     }
 
-    .floating-whatsapp:hover .whatsapp-text {
+    .floating-whatsapp:hover .whatsapp-text, .floating-share:hover .share-text, .floating-share.copied .share-text {
       max-width: 200px;
       opacity: 1;
       margin-left: 10px;
     }
 
-    .floating-whatsapp.dark-whatsapp {
+    .floating-whatsapp.dark-whatsapp, .floating-share.dark-whatsapp {
       background-color: var(--whatsapp-contrast-bg);
       border-color: var(--whatsapp-contrast-border);
     }
 
-    .floating-whatsapp.dark-whatsapp .whatsapp-text {
+    .floating-whatsapp.dark-whatsapp .whatsapp-text, .floating-share.dark-whatsapp .share-text {
       color: var(--whatsapp-contrast-text);
+    }
+
+    .floating-share.dark-whatsapp {
+      color: var(--color-pearl);
+    }
+
+    .watermark {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: clamp(40px, 5vw, 60px);
+      height: auto;
+      opacity: 0;
+      pointer-events: none;
+      filter: brightness(0) invert(1);
+      transition: opacity 0.4s ease;
+      z-index: 10;
+    }
+    
+    .copy-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      opacity: 0.001;
+      z-index: 5;
+    }
+    .gallery-main .copy-overlay { object-fit: cover; }
+    .lightbox-img-wrapper .copy-overlay { object-fit: contain; }
+    
+    .gallery-main:hover .watermark,
+    .lightbox-img-wrapper:hover .watermark {
+      opacity: 0.5;
     }
 
     @media (max-width: 768px) {
@@ -358,7 +425,8 @@
       nav { justify-content: flex-end; gap: 1rem; }
       nav a { font-size: 0.8rem; }
       .property-stats { grid-template-columns: repeat(2, 1fr); }
-      .floating-whatsapp { bottom: 20px; right: 20px; height: 50px; padding: 0 13px; font-size: 1.5rem; }
+      .floating-actions { bottom: 20px; right: 20px; gap: 8px; }
+      .floating-whatsapp, .floating-share { height: 50px; padding: 0 13px; font-size: 1.5rem; }
     }
   </style>
 </head>
@@ -383,14 +451,48 @@
     <p>JM Imóveis | <a href="https://wa.me/5547920013095" target="_blank" rel="noopener noreferrer">Fale pelo WhatsApp</a></p>
   </footer>
 
-  <a href="https://wa.me/5547920013095" class="floating-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-    <iconify-icon icon="mdi:whatsapp"></iconify-icon>
-    <span class="whatsapp-text">Fale com o corretor</span>
-  </a>
+  <div class="floating-actions">
+    <a href="https://wa.me/5547920013095" class="floating-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+      <iconify-icon icon="mdi:whatsapp"></iconify-icon>
+      <span class="whatsapp-text">Fale com o corretor</span>
+    </a>
+    <button type="button" class="floating-share" id="btn-share" aria-label="Compartilhar">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+        <path d="M0 0h24v24H0z" fill="none" />
+        <g fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M9 11.5a2.5 2.5 0 1 1-5 0a2.5 2.5 0 0 1 5 0Z" />
+          <path stroke-linecap="round" d="M14.32 16.802L9 13.29m5.42-6.45L9.1 10.352" opacity=".5" />
+          <path d="M19 18.5a2.5 2.5 0 1 1-5 0a2.5 2.5 0 0 1 5 0Zm0-13a2.5 2.5 0 1 1-5 0a2.5 2.5 0 0 1 5 0Z" />
+        </g>
+      </svg>
+      <span class="share-text" id="share-text">Copiar link</span>
+    </button>
+  </div>
 
   <script>document.write('<script src="data.js?v=' + Date.now() + '"><\/script>');</script>
   <script>
     const imoveis = window.imoveis || [];
+
+    function navigateWithTransition(url) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        window.location.href = url;
+        return;
+      }
+
+      document.body.classList.add('page-leaving');
+      window.setTimeout(() => {
+        window.location.href = url;
+      }, 320);
+    }
+
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a[href]');
+      if (!link) return;
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('http') || href.startsWith('#') || link.target === '_blank') return;
+      e.preventDefault();
+      navigateWithTransition(href);
+    });
 
     const DEFAULT_BADGES = [
       { nome: 'Exclusividade', icon: 'lucide:star' },
@@ -453,6 +555,59 @@
       }
     }
 
+    const watermarkLogo = new Image();
+    watermarkLogo.src = 'img/logo.svg';
+
+    async function applyWatermarkOverlay(imgSrc, overlayId) {
+      const overlay = document.getElementById(overlayId);
+      if (!overlay) return;
+      
+      overlay.src = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
+      
+      try {
+        const img = new Image();
+        if (imgSrc.startsWith('http')) {
+          img.crossOrigin = "anonymous";
+        }
+        await new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
+          img.src = imgSrc;
+        });
+
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        
+        ctx.drawImage(img, 0, 0);
+        
+        ctx.filter = 'brightness(0) invert(1) opacity(0.3)';
+        const cols = 5;
+        const rows = 5;
+        const w = canvas.width / cols;
+        const h = canvas.height / rows;
+        const logoW = w * 0.5;
+        const logoH = watermarkLogo.width ? logoW * (watermarkLogo.height / watermarkLogo.width) : logoW * 0.68;
+        
+        for(let i = 0; i < cols; i++){
+          for(let j = 0; j < rows; j++){
+            ctx.save();
+            ctx.translate(i * w + w / 2, j * h + h / 2);
+            ctx.rotate(-Math.PI / 6);
+            ctx.drawImage(watermarkLogo, -logoW / 2, -logoH / 2, logoW, logoH);
+            ctx.restore();
+          }
+        }
+        
+        overlay.src = canvas.toDataURL('image/jpeg', 0.85);
+        overlay.style.pointerEvents = 'auto';
+      } catch (e) {
+        console.error('Erro na marca d água', e);
+        overlay.style.pointerEvents = 'none';
+      }
+    }
+
     function renderGallery() {
       const mainImg = document.getElementById('gallery-main-img');
       const counter = document.getElementById('gallery-counter');
@@ -461,9 +616,14 @@
       const lightboxCounter = document.getElementById('lightbox-counter');
       const lightboxThumbsWrap = document.getElementById('lightbox-thumbs');
       if (!mainImg || galleryImgs.length === 0) return;
-      mainImg.src = galleryImgs[galleryIndex];
+      const currentSrc = galleryImgs[galleryIndex];
+      mainImg.src = currentSrc;
+      
+      applyWatermarkOverlay(currentSrc, 'gallery-copy-overlay');
+      applyWatermarkOverlay(currentSrc, 'lightbox-copy-overlay');
+
       if (counter) counter.textContent = `${galleryIndex + 1} / ${galleryImgs.length}`;
-      if (lightboxImg) lightboxImg.src = galleryImgs[galleryIndex];
+      if (lightboxImg) lightboxImg.src = currentSrc;
       if (lightboxCounter) lightboxCounter.textContent = `${galleryIndex + 1} / ${galleryImgs.length}`;
       if (thumbsWrap) {
         Array.from(thumbsWrap.children).forEach((img, i) => img.classList.toggle('active', i === galleryIndex));
@@ -471,14 +631,14 @@
       if (lightboxThumbsWrap) {
         Array.from(lightboxThumbsWrap.children).forEach((img, i) => img.classList.toggle('active', i === galleryIndex));
       }
-      if (!galleryMapActive) updateGalleryTagUI();
+      if (galleryView === 'photos') updateGalleryTagUI();
     }
 
     window.setGalleryIndex = function (i) {
       galleryIndex = i;
-      if (galleryMapActive) {
-        galleryMapActive = false;
-        syncMapViews();
+      if (galleryView !== 'photos') {
+        galleryView = 'photos';
+        syncGalleryView();
       }
       renderGallery();
     };
@@ -511,34 +671,42 @@
       return 'https://www.google.com/maps?q=' + encodeURIComponent(query) + '&output=embed';
     }
 
-    let galleryMapActive = false;
+    let galleryView = 'photos'; // 'photos' | 'map' | 'video'
     let galleryMapLoaded = false;
     let lightboxMapLoaded = false;
+    let currentVideoEmbedUrl = '';
 
-    function syncMapViews() {
+    function syncGalleryView() {
       const photos = document.getElementById('gallery-photos-visual');
       const mapEl = document.getElementById('gallery-map-visual');
-      const btn = document.getElementById('gallery-map-btn');
+      const videoEl = document.getElementById('gallery-video-visual');
+      const mapBtn = document.getElementById('gallery-map-btn');
+      const videoBtn = document.getElementById('gallery-video-btn');
       const counter = document.getElementById('gallery-counter');
       const loading = document.getElementById('gallery-map-loading');
       const iframe = document.getElementById('gallery-map-iframe');
+      const videoIframe = document.getElementById('gallery-video-iframe');
 
       const lbPhotos = document.getElementById('lightbox-photos');
       const lbMap = document.getElementById('lightbox-map');
+      const lbVideo = document.getElementById('lightbox-video');
       const lbControls = document.getElementById('lightbox-controls');
       const lbIframe = document.getElementById('lightbox-map-iframe');
+      const lbVideoIframe = document.getElementById('lightbox-video-iframe');
 
       const cornerTag = document.getElementById('gallery-tag');
       const lbTag = document.getElementById('lightbox-tag');
 
-      if (galleryMapActive) {
-        if (btn) btn.innerHTML = '<iconify-icon icon="mdi:image-multiple-outline"></iconify-icon> Ver Fotos';
+      [photos, mapEl, videoEl].forEach(el => el && el.classList.remove('active'));
+      [lbPhotos, lbMap, lbVideo].forEach(el => el && el.classList.remove('active'));
+
+      if (galleryView === 'map') {
+        if (mapBtn) mapBtn.innerHTML = '<iconify-icon icon="mdi:image-multiple-outline"></iconify-icon> Ver Fotos';
+        if (videoBtn) videoBtn.innerHTML = '<iconify-icon icon="mdi:play-circle-outline"></iconify-icon> Ver Vídeo';
         if (counter) counter.style.display = 'none';
         if (cornerTag) cornerTag.style.display = 'none';
         if (lbTag) lbTag.style.display = 'none';
-        if (photos) photos.classList.remove('active');
         if (mapEl) mapEl.classList.add('active');
-        if (lbPhotos) lbPhotos.classList.remove('active');
         if (lbMap) lbMap.classList.add('active');
         if (lbControls) lbControls.style.display = 'none';
 
@@ -556,21 +724,45 @@
           lbIframe.src = buildMapsEmbedUrl(imovel);
           lightboxMapLoaded = true;
         }
+      } else if (galleryView === 'video') {
+        if (mapBtn) mapBtn.innerHTML = '<iconify-icon icon="mdi:map-marker-outline"></iconify-icon> Ver no Mapa';
+        if (videoBtn) videoBtn.innerHTML = '<iconify-icon icon="mdi:image-multiple-outline"></iconify-icon> Ver Fotos';
+        if (counter) counter.style.display = 'none';
+        if (cornerTag) cornerTag.style.display = 'none';
+        if (lbTag) lbTag.style.display = 'none';
+        if (videoEl) videoEl.classList.add('active');
+        if (lbVideo) lbVideo.classList.add('active');
+        if (lbControls) lbControls.style.display = 'none';
+
+        if (videoIframe && !videoIframe.getAttribute('src') && currentVideoEmbedUrl) {
+          videoIframe.addEventListener('load', function onGalleryVideoLoad() {
+            videoIframe.classList.add('loaded');
+            videoIframe.removeEventListener('load', onGalleryVideoLoad);
+          });
+          videoIframe.src = currentVideoEmbedUrl;
+        }
+        if (lbVideoIframe && !lbVideoIframe.getAttribute('src') && currentVideoEmbedUrl) {
+          lbVideoIframe.src = currentVideoEmbedUrl;
+        }
       } else {
-        if (btn) btn.innerHTML = '<iconify-icon icon="mdi:map-marker-outline"></iconify-icon> Ver no Mapa';
+        if (mapBtn) mapBtn.innerHTML = '<iconify-icon icon="mdi:map-marker-outline"></iconify-icon> Ver no Mapa';
+        if (videoBtn) videoBtn.innerHTML = '<iconify-icon icon="mdi:play-circle-outline"></iconify-icon> Ver Vídeo';
         if (counter && galleryImgs.length > 1) counter.style.display = '';
         updateGalleryTagUI();
-        if (mapEl) mapEl.classList.remove('active');
         if (photos) photos.classList.add('active');
-        if (lbMap) lbMap.classList.remove('active');
         if (lbPhotos) lbPhotos.classList.add('active');
         if (lbControls) lbControls.style.display = '';
       }
     }
 
     window.toggleGalleryMap = function () {
-      galleryMapActive = !galleryMapActive;
-      syncMapViews();
+      galleryView = galleryView === 'map' ? 'photos' : 'map';
+      syncGalleryView();
+    };
+
+    window.toggleGalleryVideo = function () {
+      galleryView = galleryView === 'video' ? 'photos' : 'video';
+      syncGalleryView();
     };
 
     window.openLightbox = function () {
@@ -578,7 +770,7 @@
       if (!lightbox) return;
 
       renderGallery();
-      syncMapViews();
+      syncGalleryView();
 
       lightbox.classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -599,12 +791,13 @@
       const lightbox = document.getElementById('gallery-lightbox');
       if (!lightbox || !lightbox.classList.contains('active')) return;
       if (e.key === 'Escape') closeLightbox();
-      else if (e.key === 'ArrowLeft' && !galleryMapActive) galleryPrev();
-      else if (e.key === 'ArrowRight' && !galleryMapActive) galleryNext();
+      else if (e.key === 'ArrowLeft' && galleryView === 'photos') galleryPrev();
+      else if (e.key === 'ArrowRight' && galleryView === 'photos') galleryNext();
     });
 
     document.addEventListener('DOMContentLoaded', () => {
       const waBtn = document.querySelector('.floating-whatsapp');
+      const shareBtn = document.getElementById('btn-share');
       if (!waBtn) return;
 
       const checkBackground = () => {
@@ -615,11 +808,30 @@
         const isDarkBackground = elements.some(el => el.tagName === 'FOOTER' || el.classList.contains('modal') || el.classList.contains('lightbox'));
 
         waBtn.classList.toggle('dark-whatsapp', !isDarkBackground);
+        if (shareBtn) shareBtn.classList.toggle('dark-whatsapp', !isDarkBackground);
       };
 
       window.addEventListener('scroll', () => requestAnimationFrame(checkBackground), { passive: true });
       window.addEventListener('resize', () => requestAnimationFrame(checkBackground), { passive: true });
       setTimeout(checkBackground, 100);
+
+      if (shareBtn) {
+        shareBtn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(window.location.href);
+            const span = shareBtn.querySelector('.share-text');
+            span.textContent = 'Link Copiado!';
+            shareBtn.classList.add('copied');
+            
+            setTimeout(() => {
+              span.textContent = 'Copiar link';
+              shareBtn.classList.remove('copied');
+            }, 2500);
+          } catch (e) {
+            console.error('Erro ao copiar link:', e);
+          }
+        });
+      }
     });
 
     function youtubeEmbedUrl(url) {
@@ -684,7 +896,7 @@
           <button type="button" class="lightbox-nav next" onclick="galleryNext()" aria-label="Próxima foto"><iconify-icon icon="mdi:chevron-right"></iconify-icon></button>
         </div>` : '';
 
-      galleryMapActive = false;
+      galleryView = 'photos';
       galleryMapLoaded = false;
       lightboxMapLoaded = false;
 
@@ -692,11 +904,7 @@
 
       const whatsappText = encodeURIComponent(`Olá, gostaria de saber mais sobre o imóvel: ${imovel.nome} - ${imovel.localizacao}.`);
       const embedUrl = youtubeEmbedUrl(imovel.youtube);
-      const videoSectionHTML = embedUrl ? `
-        <div class="property-section">
-          <h3>Vídeo</h3>
-          <div class="video-frame"><iframe src="${embedUrl}" title="Vídeo do imóvel" allowfullscreen loading="lazy"></iframe></div>
-        </div>` : '';
+      currentVideoEmbedUrl = embedUrl || '';
 
       main.innerHTML = `
         <div class="gallery-wrap">
@@ -704,6 +912,8 @@
             <div class="gallery-photos-visual active" id="gallery-photos-visual">
               <div class="gallery-main">
                 <img id="gallery-main-img" src="${galleryImgs[0] || ''}" alt="${imovel.nome}">
+                <img id="gallery-copy-overlay" class="copy-overlay" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Copiar Imagem">
+                <img src="img/logo.svg" class="watermark" alt="Marca d'água">
                 ${galleryNavHTML}
               </div>
             </div>
@@ -725,21 +935,33 @@
               </div>
               <iframe id="gallery-map-iframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
+            ${embedUrl ? `
+            <div class="gallery-video-visual" id="gallery-video-visual">
+              <iframe id="gallery-video-iframe" loading="lazy" title="Vídeo do imóvel" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>
+            </div>` : ''}
             <div class="gallery-corner" id="gallery-corner">
-              <button type="button" class="gallery-map-btn" id="gallery-map-btn" onclick="toggleGalleryMap()">
-                <iconify-icon icon="mdi:map-marker-outline"></iconify-icon> Ver no Mapa
-              </button>
               <span class="gallery-tag" id="gallery-tag" style="${galleryTags[0] ? '' : 'display:none;'}">
                 <span id="gallery-tag-text">${galleryTags[0] || ''}</span>
               </span>
               <span class="gallery-counter" id="gallery-counter" style="${galleryImgs.length > 1 ? '' : 'display:none;'}">1 / ${galleryImgs.length}</span>
-              <button type="button" class="gallery-expand-btn" id="gallery-expand-btn" onclick="openLightbox()" aria-label="Ampliar">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
-                  <path d="M0 0h512v512H0z" fill="none" />
-                  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M304 96h112v112m-10.23-101.8L111.98 400.02M208 416H96V304" />
-                </svg>
-              </button>
             </div>
+          </div>
+          <div class="gallery-toolbar" id="gallery-toolbar">
+            <div class="gallery-toolbar-buttons">
+              <button type="button" class="gallery-tool-btn" id="gallery-map-btn" onclick="toggleGalleryMap()">
+                <iconify-icon icon="mdi:map-marker-outline"></iconify-icon> Ver no Mapa
+              </button>
+              ${embedUrl ? `
+              <button type="button" class="gallery-tool-btn" id="gallery-video-btn" onclick="toggleGalleryVideo()">
+                <iconify-icon icon="mdi:play-circle-outline"></iconify-icon> Ver Vídeo
+              </button>` : ''}
+            </div>
+            <button type="button" class="gallery-expand-btn" id="gallery-expand-btn" onclick="openLightbox()" aria-label="Ampliar">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
+                <path d="M0 0h512v512H0z" fill="none" />
+                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M304 96h112v112m-10.23-101.8L111.98 400.02M208 416H96V304" />
+              </svg>
+            </button>
           </div>
           ${thumbsHTML ? `
           <div class="gallery-subrow" id="gallery-subrow">
@@ -752,11 +974,19 @@
           <div class="lightbox-content">
             <div class="lightbox-stage">
               <div class="lightbox-photos active" id="lightbox-photos">
-                <img id="lightbox-img" src="${galleryImgs[0] || ''}" alt="${imovel.nome}">
+                <div class="lightbox-img-wrapper">
+                  <img id="lightbox-img" src="${galleryImgs[0] || ''}" alt="${imovel.nome}">
+                  <img id="lightbox-copy-overlay" class="copy-overlay" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Copiar Imagem">
+                  <img src="img/logo.svg" class="watermark" alt="Marca d'água">
+                </div>
               </div>
               <div class="lightbox-map" id="lightbox-map">
                 <iframe id="lightbox-map-iframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
               </div>
+              ${embedUrl ? `
+              <div class="lightbox-video" id="lightbox-video">
+                <iframe id="lightbox-video-iframe" loading="lazy" title="Vídeo do imóvel" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>
+              </div>` : ''}
             </div>
             <div class="lightbox-tag" id="lightbox-tag" style="${galleryTags[0] ? '' : 'display:none;'}">${galleryTags[0] || ''}</div>
             ${lightboxControlsHTML}
@@ -784,7 +1014,6 @@
 
           ${renderTagsSection('Características do imóvel', imovel.caracteristicas)}
           ${renderTagsSection('Características do condomínio', imovel.caracteristicasCondominio)}
-          ${videoSectionHTML}
 
           <div class="property-actions">
             <a href="https://wa.me/5547920013095?text=${whatsappText}" target="_blank" rel="noopener noreferrer" class="btn-cta">
