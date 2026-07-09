@@ -2240,10 +2240,6 @@
         padding: calc(var(--header-height) + 1rem) 5% calc(1.5rem + 60px);
         justify-content: center;
         overflow: visible;
-        /* Sem isolamento, os filhos com z-index positivo (ex: dropdown aberto)
-           podem empilhar acima da seção #imoveis (z-index: 10) quando ultrapassam
-           os limites do hero; o próprio fundo do hero continua abaixo dela. */
-        isolation: auto;
       }
 
       .hero::before,
@@ -2272,6 +2268,18 @@
 
       .filter-wide {
         grid-column: 1 / -1;
+      }
+
+      /* Abre para cima: evita que o menu invada a área de sobreposição com
+         #imoveis no fim do hero (isolamento do hero mantém o dropdown contido) */
+      .site-select-menu {
+        top: auto;
+        bottom: calc(100% + 10px);
+        transform: translateY(8px);
+      }
+
+      .site-select.open .site-select-menu {
+        transform: translateY(0);
       }
 
       /* Busca da tela inicial replica os campos do desktop, exceto Busca Livre */
