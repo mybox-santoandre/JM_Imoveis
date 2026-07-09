@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#141311" media="(prefers-color-scheme: dark)">
   <title>JM Imóveis | Alto Padrão em Balneário Camboriú</title>
   <meta name="description"
-    content="Imóveis selecionados em Balneário Camboriú e região. Com exclusividade e conforto sob medida, encontre o endereço ideal para o seu momento com a JM Imóveis." >
+    content="Imóveis selecionados em Balneário Camboriú e região. Com exclusividade e conforto sob medida, encontre o endereço ideal para o seu momento com a JM Imóveis.">
   <link rel="icon" type="image/svg+xml" href="img/logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -117,6 +117,7 @@
       overscroll-behavior: none;
       background-color: var(--color-pearl);
     }
+
     body {
       font-family: var(--font-main);
       background-color: var(--color-pearl);
@@ -629,11 +630,16 @@
     }
 
     @media (prefers-color-scheme: dark) {
-      .hero::before { opacity: 0; }
-      .hero::after { opacity: 1; }
+      .hero::before {
+        opacity: 0;
+      }
+
+      .hero::after {
+        opacity: 1;
+      }
     }
 
-    .hero > * {
+    .hero>* {
       position: relative;
       z-index: 1;
     }
@@ -980,7 +986,7 @@
       gap: 0.9rem;
     }
 
-    .carousel-saibamais-inner > iconify-icon {
+    .carousel-saibamais-inner>iconify-icon {
       font-size: 2.6rem;
       opacity: 0.9;
     }
@@ -1031,10 +1037,21 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
     }
 
-    .card:hover .carousel-nav { opacity: 1; }
-    .carousel-nav:hover { background: var(--color-khaki); }
-    .carousel-nav.prev { left: 12px; }
-    .carousel-nav.next { right: 12px; }
+    .card:hover .carousel-nav {
+      opacity: 1;
+    }
+
+    .carousel-nav:hover {
+      background: var(--color-khaki);
+    }
+
+    .carousel-nav.prev {
+      left: 12px;
+    }
+
+    .carousel-nav.next {
+      right: 12px;
+    }
 
     .carousel-dots {
       position: absolute;
@@ -1059,10 +1076,14 @@
       transform: scale(1.25);
     }
 
-    .card-img .card-badges { z-index: 6; }
+    .card-img .card-badges {
+      z-index: 6;
+    }
 
     @media (hover: none) {
-      .carousel-nav { opacity: 1; }
+      .carousel-nav {
+        opacity: 1;
+      }
     }
 
     .card-badges {
@@ -1521,7 +1542,11 @@
       border-radius: 20px;
       scrollbar-width: none;
     }
-    .modal-content::-webkit-scrollbar { width: 0; height: 0; }
+
+    .modal-content::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
 
     .modal.active .modal-content {
       transform: translateY(0);
@@ -1543,7 +1568,7 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      box-shadow: 0 2px 10px rgba(38,38,38,0.12);
+      box-shadow: 0 2px 10px rgba(38, 38, 38, 0.12);
       font-size: 1.6rem;
       cursor: pointer;
       color: var(--color-leather);
@@ -1571,6 +1596,7 @@
       padding: 0 3px;
       border-radius: 3px;
     }
+
     .modal-description iconify-icon {
       vertical-align: -0.15em;
       margin: 0 1px;
@@ -1627,15 +1653,44 @@
     }
 
     /* Galeria grande do modal */
-    .gallery-stage { position: relative; width: 100%; aspect-ratio: 16 / 10; border-radius: 14px; overflow: hidden; background: var(--color-khaki); margin-bottom: 10px; }
-    .gallery-photos-visual, .gallery-map-visual {
-      position: absolute; inset: 0;
-      opacity: 0; transform: scale(0.96); pointer-events: none;
+    .gallery-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--color-khaki);
+      margin-bottom: 10px;
+    }
+
+    .gallery-photos-visual,
+    .gallery-map-visual {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: scale(0.96);
+      pointer-events: none;
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
-    .gallery-photos-visual.active, .gallery-map-visual.active { opacity: 1; transform: scale(1); pointer-events: auto; }
-    .modal-gallery-main { position: relative; width: 100%; height: 100%; }
-    .modal-gallery-main img { width: 100%; height: 100%; object-fit: cover; }
+
+    .gallery-photos-visual.active,
+    .gallery-map-visual.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    .modal-gallery-main {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .modal-gallery-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
     .gallery-nav {
       position: absolute;
@@ -1667,39 +1722,137 @@
       right: 12px;
     }
 
-    .gallery-corner { position: absolute; bottom: 12px; right: 12px; display: flex; align-items: center; gap: 6px; z-index: 3; }
-    .gallery-counter { background: var(--gallery-control-bg); color: var(--color-leather); padding: 4px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
-    .gallery-tag {
-      display: flex; align-items: center; background: var(--gallery-control-bg); color: var(--color-leather);
-      padding: 4px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 600;
+    .gallery-corner {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 3;
     }
-    .gallery-map-btn {
-      display: flex; align-items: center; gap: 6px; border: none; background: var(--gallery-control-bg);
-      color: var(--color-leather); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.3px;
-      padding: 6px 12px; border-radius: 999px; cursor: pointer; transition: var(--transition);
-    }
-    .gallery-map-btn:hover { background: var(--color-khaki); }
-    .gallery-map-btn iconify-icon { font-size: 0.95rem; }
-    .gallery-expand-btn {
-      display: flex; align-items: center; justify-content: center; border: none; background: var(--gallery-control-bg);
-      color: var(--color-leather); width: 28px; height: 28px; border-radius: 50%; cursor: pointer; transition: var(--transition); font-size: 0.9rem;
-    }
-    .gallery-expand-btn:hover { background: var(--color-khaki); }
-    .gallery-expand-btn svg { width: 1em; height: 1em; display: block; }
 
-    .gallery-map-visual { background: var(--color-khaki); }
-    .gallery-map-visual iframe { width: 100%; height: 100%; border: 0; display: block; opacity: 0; transition: opacity 0.6s ease; }
-    .gallery-map-visual iframe.loaded { opacity: 1; }
-    .gallery-map-loading {
-      position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 8px; color: var(--color-leather); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 2;
+    .gallery-counter {
+      background: var(--gallery-control-bg);
+      color: var(--color-leather);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
     }
-    .gallery-map-loading.active { opacity: 1; }
-    .gallery-map-loading svg { width: 2.2em; height: 2.2em; }
-    .gallery-map-loading span { font-size: 0.75rem; letter-spacing: 0.4px; color: var(--color-taupe); }
+
+    .gallery-tag {
+      display: flex;
+      align-items: center;
+      background: var(--gallery-control-bg);
+      color: var(--color-leather);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .gallery-map-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      background: var(--gallery-control-bg);
+      color: var(--color-leather);
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.3px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .gallery-map-btn:hover {
+      background: var(--color-khaki);
+    }
+
+    .gallery-map-btn iconify-icon {
+      font-size: 0.95rem;
+    }
+
+    .gallery-expand-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: var(--gallery-control-bg);
+      color: var(--color-leather);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+
+    .gallery-expand-btn:hover {
+      background: var(--color-khaki);
+    }
+
+    .gallery-expand-btn svg {
+      width: 1em;
+      height: 1em;
+      display: block;
+    }
+
+    .gallery-map-visual {
+      background: var(--color-khaki);
+    }
+
+    .gallery-map-visual iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .gallery-map-visual iframe.loaded {
+      opacity: 1;
+    }
+
+    .gallery-map-loading {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--color-leather);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 2;
+    }
+
+    .gallery-map-loading.active {
+      opacity: 1;
+    }
+
+    .gallery-map-loading svg {
+      width: 2.2em;
+      height: 2.2em;
+    }
+
+    .gallery-map-loading span {
+      font-size: 0.75rem;
+      letter-spacing: 0.4px;
+      color: var(--color-taupe);
+    }
 
     /* Faixa de miniaturas abaixo da foto principal: sempre visível */
-    .gallery-subrow { margin-bottom: 1.5rem; }
+    .gallery-subrow {
+      margin-bottom: 1.5rem;
+    }
+
     .modal-thumbs {
       display: flex;
       gap: 8px;
@@ -1727,69 +1880,222 @@
 
     /* Lightbox de ampliação (fotos/mapa maiores) sobre o modal de detalhes */
     .lightbox {
-      position: fixed; inset: 0; background: #0c0b09; z-index: 2100;
-      display: flex; align-items: center; justify-content: center; padding: 60px;
-      opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
+      position: fixed;
+      inset: 0;
+      background: #0c0b09;
+      z-index: 2100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
     }
-    .lightbox.active { opacity: 1; pointer-events: auto; }
+
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     .lightbox-close {
-      position: absolute; top: 24px; right: 24px; width: 44px; height: 44px; border-radius: 50%;
-      border: none; background: rgba(255,255,255,0.12); color: #fff; font-size: 1.4rem;
-      display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition); z-index: 2;
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 2;
     }
-    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
     .lightbox-content {
-      position: relative; width: 100%; height: 100%; max-width: 1400px;
-      display: flex; flex-direction: column; align-items: center; gap: 14px;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-width: 1400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
     }
-    .lightbox-stage { position: relative; width: 100%; flex: 1; min-height: 0; }
-    .lightbox-photos, .lightbox-map {
-      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-      opacity: 0; transform: scale(0.96); pointer-events: none; transition: opacity 0.4s ease, transform 0.4s ease;
+
+    .lightbox-stage {
+      position: relative;
+      width: 100%;
+      flex: 1;
+      min-height: 0;
     }
-    .lightbox-photos.active, .lightbox-map.active { opacity: 1; transform: scale(1); }
-    .lightbox.active .lightbox-photos.active, .lightbox.active .lightbox-map.active { pointer-events: auto; }
-    .lightbox-photos img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 12px; }
-    .lightbox-map iframe { width: 100%; height: 100%; border: 0; border-radius: 12px; }
-    .lightbox-controls { display: flex; align-items: center; justify-content: center; gap: 18px; flex-shrink: 0; }
+
+    .lightbox-photos,
+    .lightbox-map {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(0.96);
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .lightbox-photos.active,
+    .lightbox-map.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .lightbox.active .lightbox-photos.active,
+    .lightbox.active .lightbox-map.active {
+      pointer-events: auto;
+    }
+
+    .lightbox-photos img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    .lightbox-map iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      border-radius: 12px;
+    }
+
+    .lightbox-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      flex-shrink: 0;
+    }
+
     .lightbox-nav {
-      background: rgba(255,255,255,0.12); border: none; width: 44px; height: 44px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; font-size: 1.5rem; color: #fff; transition: var(--transition);
+      background: rgba(255, 255, 255, 0.12);
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: #fff;
+      transition: var(--transition);
     }
-    .lightbox-nav:hover { background: rgba(255,255,255,0.25); }
+
+    .lightbox-nav:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
     .lightbox-counter {
-      color: #fff; font-size: 0.85rem; background: rgba(255,255,255,0.12); padding: 6px 16px; border-radius: 999px;
+      color: #fff;
+      font-size: 0.85rem;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 6px 16px;
+      border-radius: 999px;
     }
+
     .lightbox-tag {
-      color: #fff; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.3px;
-      background: rgba(255,255,255,0.12); padding: 6px 16px; border-radius: 999px;
-      width: fit-content; margin: 0 auto; flex-shrink: 0;
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 6px 16px;
+      border-radius: 999px;
+      width: fit-content;
+      margin: 0 auto;
+      flex-shrink: 0;
     }
+
     .lightbox-thumbs {
-      display: flex; gap: 8px; overflow-x: auto; max-width: 100%; padding: 2px 2px 6px; flex-shrink: 0; justify-content: safe center;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      max-width: 100%;
+      padding: 2px 2px 6px;
+      flex-shrink: 0;
+      justify-content: safe center;
     }
+
     .lightbox-thumbs img {
-      width: 70px; height: 54px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid transparent;
-      opacity: 0.55; transition: var(--transition); flex-shrink: 0;
+      width: 70px;
+      height: 54px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      opacity: 0.55;
+      transition: var(--transition);
+      flex-shrink: 0;
     }
-    .lightbox-thumbs img.active { opacity: 1; border-color: #fff; }
+
+    .lightbox-thumbs img.active {
+      opacity: 1;
+      border-color: #fff;
+    }
+
     @media (max-width: 768px) {
-      .lightbox { padding: 20px 12px; }
-      .lightbox-nav { width: 38px; height: 38px; font-size: 1.3rem; }
-      .lightbox-close { top: 12px; right: 12px; }
-      .lightbox-thumbs img { width: 56px; height: 44px; }
+      .lightbox {
+        padding: 20px 12px;
+      }
+
+      .lightbox-nav {
+        width: 38px;
+        height: 38px;
+        font-size: 1.3rem;
+      }
+
+      .lightbox-close {
+        top: 12px;
+        right: 12px;
+      }
+
+      .lightbox-thumbs img {
+        width: 56px;
+        height: 44px;
+      }
     }
 
     /* Scrollbar moderna para faixas de miniaturas */
-    .modal-thumbs, .lightbox-thumbs {
+    .modal-thumbs,
+    .lightbox-thumbs {
       scrollbar-width: thin;
       scrollbar-color: var(--color-taupe) transparent;
     }
-    .modal-thumbs::-webkit-scrollbar, .lightbox-thumbs::-webkit-scrollbar { width: 8px; height: 6px; }
-    .modal-thumbs::-webkit-scrollbar-track, .lightbox-thumbs::-webkit-scrollbar-track { background: transparent; }
-    .modal-thumbs::-webkit-scrollbar-thumb, .lightbox-thumbs::-webkit-scrollbar-thumb {
-      background-color: var(--color-taupe); border-radius: 999px;
+
+    .modal-thumbs::-webkit-scrollbar,
+    .lightbox-thumbs::-webkit-scrollbar {
+      width: 8px;
+      height: 6px;
+    }
+
+    .modal-thumbs::-webkit-scrollbar-track,
+    .lightbox-thumbs::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .modal-thumbs::-webkit-scrollbar-thumb,
+    .lightbox-thumbs::-webkit-scrollbar-thumb {
+      background-color: var(--color-taupe);
+      border-radius: 999px;
     }
 
     .modal-badges {
@@ -1929,26 +2235,53 @@
         height: auto;
         min-height: 100vh;
         min-height: 100svh;
-        padding: calc(var(--header-height) + 1.5rem) 5% 1.5rem;
+        padding: calc(var(--header-height) + 1rem) 5% calc(1.5rem + 60px);
         justify-content: flex-start;
         overflow: visible;
       }
 
+      .hero::before,
+      .hero::after {
+        background-position: left center;
+      }
+
       .hero h1 {
-        font-size: clamp(2rem, 11vw, 3.15rem);
+        font-size: clamp(1.3rem, 5.6vw, 1.7rem);
+        margin-bottom: 0.5rem;
+        line-height: 1.25;
       }
 
       .hero h2 {
-        margin-bottom: 1.6rem;
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
       }
 
       .filter-bar {
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.25rem;
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.65rem 1rem;
+        padding: 1rem 1.1rem;
+        border-radius: 18px;
       }
 
       .filter-wide {
         grid-column: 1 / -1;
+      }
+
+      /* Simplifica a busca na tela inicial: mantém Tipo, Finalidade e Busca Livre,
+         os demais filtros continuam disponíveis na página de busca completa */
+      .filter-bar .filter-group:has(#filter-banheiros),
+      .filter-bar .filter-group:has(#filter-vagas),
+      .filter-bar .filter-group:has(#filter-caracteristica),
+      .filter-bar .filter-group:has(#price-min),
+      .filter-bar .filter-group:has(#price-max) {
+        display: none;
+      }
+
+      .hero-cta,
+      .section-cta {
+        padding: 14px 32px;
+        font-size: 0.85rem;
       }
     }
 
@@ -1991,8 +2324,13 @@
     }
 
     @media (max-width: 768px) {
-      .modal-content { padding: 1.75rem 1.25rem; }
-      .modal-stats { grid-template-columns: repeat(2, 1fr); }
+      .modal-content {
+        padding: 1.75rem 1.25rem;
+      }
+
+      .modal-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   </style>
 </head>
@@ -2003,7 +2341,8 @@
     <div class="first-visit-backdrop"></div>
     <div class="first-visit-stage" role="status" aria-live="polite">
       <div class="first-visit-mark">
-        <svg class="first-visit-logo" viewBox="0 0 892 606" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="JM">
+        <svg class="first-visit-logo" viewBox="0 0 892 606" xmlns="http://www.w3.org/2000/svg" role="img"
+          aria-label="JM">
           <path
             d="M392.119 323.865V218.745L592.739 377.121L791.179 213.529L791.909 603.924C792.639 605.744 797.879 605.864 842.159 605.624H891.549V0.534287C891.549 0.322236 891.302 0.206492 891.139 0.342371L592.739 249.405C592.129 249.405 315.359 22.51 287.499 0V223.245C286.889 424.345 286.769 434.084 284.579 441.624C277.039 467.904 261.219 486.884 237.129 498.684C230.439 502.094 221.549 505.624 217.539 506.714C205.859 509.884 186.509 510.364 173.739 507.934C141.859 501.974 119.229 485.674 104.999 458.544L98.7992 446.504L0 465.001C0 483.861 16.5392 521.444 39.0492 544.564C74.2092 580.584 117.399 599.434 174.339 603.574C241.619 608.434 300.509 588.854 342.359 547.484C356.709 533.244 365.469 521.564 373.259 506.114C383.599 485.554 388.829 466.704 390.899 442.854C391.509 435.064 392.119 382.265 392.119 323.865Z" />
         </svg>
@@ -2017,7 +2356,8 @@
         <p class="first-visit-greeting" id="first-visit-greeting">Bom dia</p>
         <p class="first-visit-welcome">Seja bem-vindo(a) à</p>
         <div class="first-visit-brand" aria-label="JM Imóveis">
-          <svg class="first-visit-brand-logo" viewBox="0 0 892 606" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <svg class="first-visit-brand-logo" viewBox="0 0 892 606" xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true">
             <path
               d="M392.119 323.865V218.745L592.739 377.121L791.179 213.529L791.909 603.924C792.639 605.744 797.879 605.864 842.159 605.624H891.549V0.534287C891.549 0.322236 891.302 0.206492 891.139 0.342371L592.739 249.405C592.129 249.405 315.359 22.51 287.499 0V223.245C286.889 424.345 286.769 434.084 284.579 441.624C277.039 467.904 261.219 486.884 237.129 498.684C230.439 502.094 221.549 505.624 217.539 506.714C205.859 509.884 186.509 510.364 173.739 507.934C141.859 501.974 119.229 485.674 104.999 458.544L98.7992 446.504L0 465.001C0 483.861 16.5392 521.444 39.0492 544.564C74.2092 580.584 117.399 599.434 174.339 603.574C241.619 608.434 300.509 588.854 342.359 547.484C356.709 533.244 365.469 521.564 373.259 506.114C383.599 485.554 388.829 466.704 390.899 442.854C391.509 435.064 392.119 382.265 392.119 323.865Z" />
           </svg>
@@ -2057,11 +2397,15 @@
             <iconify-icon icon="mdi:chevron-down"></iconify-icon>
           </button>
           <div class="site-select-menu" role="listbox">
-            <button type="button" class="site-select-option selected" data-value="" data-label="Todos os tipos">Todos os tipos</button>
-            <button type="button" class="site-select-option" data-value="Apartamento" data-label="Apartamento">Apartamento</button>
+            <button type="button" class="site-select-option selected" data-value="" data-label="Todos os tipos">Todos os
+              tipos</button>
+            <button type="button" class="site-select-option" data-value="Apartamento"
+              data-label="Apartamento">Apartamento</button>
             <button type="button" class="site-select-option" data-value="Casa" data-label="Casa">Casa</button>
-            <button type="button" class="site-select-option" data-value="Cobertura" data-label="Cobertura">Cobertura</button>
-            <button type="button" class="site-select-option" data-value="Sala Comercial" data-label="Sala Comercial">Sala Comercial</button>
+            <button type="button" class="site-select-option" data-value="Cobertura"
+              data-label="Cobertura">Cobertura</button>
+            <button type="button" class="site-select-option" data-value="Sala Comercial"
+              data-label="Sala Comercial">Sala Comercial</button>
           </div>
         </div>
       </div>
@@ -2091,11 +2435,16 @@
             <iconify-icon icon="mdi:chevron-down"></iconify-icon>
           </button>
           <div class="site-select-menu" role="listbox">
-            <button type="button" class="site-select-option selected" data-value="" data-label="Qualquer">Qualquer</button>
-            <button type="button" class="site-select-option" data-value="1" data-label="1+ banheiro">1+ banheiro</button>
-            <button type="button" class="site-select-option" data-value="2" data-label="2+ banheiros">2+ banheiros</button>
-            <button type="button" class="site-select-option" data-value="3" data-label="3+ banheiros">3+ banheiros</button>
-            <button type="button" class="site-select-option" data-value="4" data-label="4+ banheiros">4+ banheiros</button>
+            <button type="button" class="site-select-option selected" data-value=""
+              data-label="Qualquer">Qualquer</button>
+            <button type="button" class="site-select-option" data-value="1" data-label="1+ banheiro">1+
+              banheiro</button>
+            <button type="button" class="site-select-option" data-value="2" data-label="2+ banheiros">2+
+              banheiros</button>
+            <button type="button" class="site-select-option" data-value="3" data-label="3+ banheiros">3+
+              banheiros</button>
+            <button type="button" class="site-select-option" data-value="4" data-label="4+ banheiros">4+
+              banheiros</button>
           </div>
         </div>
       </div>
@@ -2109,7 +2458,8 @@
             <iconify-icon icon="mdi:chevron-down"></iconify-icon>
           </button>
           <div class="site-select-menu" role="listbox">
-            <button type="button" class="site-select-option selected" data-value="" data-label="Qualquer">Qualquer</button>
+            <button type="button" class="site-select-option selected" data-value=""
+              data-label="Qualquer">Qualquer</button>
             <button type="button" class="site-select-option" data-value="1" data-label="1+ vaga">1+ vaga</button>
             <button type="button" class="site-select-option" data-value="2" data-label="2+ vagas">2+ vagas</button>
             <button type="button" class="site-select-option" data-value="3" data-label="3+ vagas">3+ vagas</button>
@@ -2127,7 +2477,8 @@
             <iconify-icon icon="mdi:chevron-down"></iconify-icon>
           </button>
           <div class="site-select-menu" role="listbox">
-            <button type="button" class="site-select-option selected" data-value="" data-label="Todas as características">Todas as características</button>
+            <button type="button" class="site-select-option selected" data-value=""
+              data-label="Todas as características">Todas as características</button>
           </div>
         </div>
       </div>
@@ -2181,8 +2532,7 @@
   <section id="sobre" class="about">
     <div class="about-container">
       <div class="about-img">
-        <img src="img/Judson.webp"
-          alt="Retrato do Corretor" loading="lazy">
+        <img src="img/Judson.webp" alt="Retrato do Corretor" loading="lazy">
       </div>
       <div class="about-content">
         <h3 class="serif">Excelência e Exclusividade.</h3>
@@ -2221,9 +2571,12 @@
       <div class="footer-col">
         <h4>Redes Sociais</h4>
         <div class="social-links">
-          <a href="https://www.instagram.com/judsoncorretor?igsh=MXNrMGI0dDJic2Q0cw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><iconify-icon icon="mdi:instagram"></iconify-icon></a>
-          <a href="https://www.facebook.com/profile.php?id=61583637137810&locale=pt_BR" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><iconify-icon icon="mdi:facebook"></iconify-icon></a>
-          <a href="https://youtube.com/@seuimovelembc?si=2Dt_Qe7aOMq2u3Ty" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><iconify-icon icon="mdi:youtube"></iconify-icon></a>
+          <a href="https://www.instagram.com/judsoncorretor?igsh=MXNrMGI0dDJic2Q0cw==" target="_blank"
+            rel="noopener noreferrer" aria-label="Instagram"><iconify-icon icon="mdi:instagram"></iconify-icon></a>
+          <a href="https://www.facebook.com/profile.php?id=61583637137810&locale=pt_BR" target="_blank"
+            rel="noopener noreferrer" aria-label="Facebook"><iconify-icon icon="mdi:facebook"></iconify-icon></a>
+          <a href="https://youtube.com/@seuimovelembc?si=2Dt_Qe7aOMq2u3Ty" target="_blank" rel="noopener noreferrer"
+            aria-label="YouTube"><iconify-icon icon="mdi:youtube"></iconify-icon></a>
         </div>
       </div>
     </div>
@@ -2250,7 +2603,8 @@
       </div>
     </div>
     <div class="lightbox" id="modal-lightbox" onclick="if (event.target === this) closeModalLightbox()">
-      <button type="button" class="lightbox-close" onclick="closeModalLightbox()" aria-label="Fechar"><iconify-icon icon="mdi:close"></iconify-icon></button>
+      <button type="button" class="lightbox-close" onclick="closeModalLightbox()" aria-label="Fechar"><iconify-icon
+          icon="mdi:close"></iconify-icon></button>
       <div class="lightbox-content">
         <div class="lightbox-stage">
           <div class="lightbox-photos active" id="modal-lightbox-photos">
@@ -2263,9 +2617,11 @@
         <div class="lightbox-tag" id="modal-lightbox-tag" style="display:none;"></div>
         <div class="lightbox-thumbs" id="modal-lightbox-thumbs"></div>
         <div class="lightbox-controls" id="modal-lightbox-controls">
-          <button type="button" class="lightbox-nav prev" onclick="modalGalleryPrev()" aria-label="Foto anterior"><iconify-icon icon="mdi:chevron-left"></iconify-icon></button>
+          <button type="button" class="lightbox-nav prev" onclick="modalGalleryPrev()"
+            aria-label="Foto anterior"><iconify-icon icon="mdi:chevron-left"></iconify-icon></button>
           <span class="lightbox-counter" id="modal-lightbox-counter"></span>
-          <button type="button" class="lightbox-nav next" onclick="modalGalleryNext()" aria-label="Próxima foto"><iconify-icon icon="mdi:chevron-right"></iconify-icon></button>
+          <button type="button" class="lightbox-nav next" onclick="modalGalleryNext()"
+            aria-label="Próxima foto"><iconify-icon icon="mdi:chevron-right"></iconify-icon></button>
         </div>
       </div>
     </div>
@@ -2294,7 +2650,7 @@
         if (prefersReducedMotion) {
           try {
             localStorage.setItem(storageKey, '1');
-          } catch (error) {}
+          } catch (error) { }
         }
         document.documentElement.classList.remove('first-visit-pending');
         intro.remove();
@@ -2312,7 +2668,7 @@
 
       try {
         localStorage.setItem(storageKey, '1');
-      } catch (error) {}
+      } catch (error) { }
 
       intro.setAttribute('aria-hidden', 'false');
       document.body.classList.add('first-visit-active');
@@ -2613,7 +2969,7 @@
         const badgesArr = imovel.badges ? imovel.badges : (imovel.badge ? [imovel.badge] : []);
         let badgesHTML = '';
         let badgeToShow = imovel.destaqueBadge || (badgesArr.length > 0 ? badgesArr[0] : null);
-        
+
         if (badgeToShow) {
           const bData = ALL_BADGES.find(x => x.nome === badgeToShow);
           let iconHTML = '';
@@ -3018,17 +3374,17 @@
         const rect = waBtn.getBoundingClientRect();
         const x = rect.left + rect.width / 2;
         const y = rect.top + rect.height / 2;
-        
+
         const elements = document.elementsFromPoint(x, y);
         let isDarkBackground = false;
-        
+
         for (const el of elements) {
           if (el.tagName === 'FOOTER' || el.classList.contains('hero') || el.classList.contains('search-hero') || el.classList.contains('modal')) {
             isDarkBackground = true;
             break;
           }
         }
-        
+
         if (isDarkBackground) {
           waBtn.classList.remove('dark-whatsapp');
         } else {
