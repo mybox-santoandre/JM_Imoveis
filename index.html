@@ -793,6 +793,8 @@
       border-radius: 12px;
       box-shadow: var(--shadow-soft);
       padding: 8px;
+      max-height: 260px;
+      overflow-y: auto;
       opacity: 0;
       transform: translateY(-8px);
       pointer-events: none;
@@ -2266,12 +2268,6 @@
 
       .filter-wide {
         grid-column: 1 / -1;
-      }
-
-      /* Evita que o menu do select fique atrás da seção "Em Destaque" (z-index: 10)
-         quando o dropdown abre perto do fim do hero */
-      .hero:has(.site-select.open) {
-        z-index: 20;
       }
 
       /* Busca da tela inicial replica os campos do desktop, exceto Busca Livre */
