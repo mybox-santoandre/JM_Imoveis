@@ -365,17 +365,18 @@ window.imoveis = [
     "areaUtil": "61.26 m²",
     "areaTotal": "",
     "imagens": [
+      "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151921417-6.jpg",
       "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151912610-0.jpg",
       "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151914045-1.jpg",
       "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151915681-2.jpg",
       "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151917081-3.jpg",
       "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151918624-4.jpg",
       "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151919985-5.jpg",
-      "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151921417-6.jpg",
       "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151922785-7.jpg",
       "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151924488-8.jpg",
       "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151925887-9.jpg",
       "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151927253-10.jpg",
+      "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151950868-26.jpg",
       "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151928648-11.jpg",
       "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151930086-12.jpg",
       "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151931609-13.jpg",
@@ -391,7 +392,6 @@ window.imoveis = [
       "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151946815-23.jpg",
       "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151948114-24.jpg",
       "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151949476-25.jpg",
-      "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151950868-26.jpg",
       "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151952243-27.jpg",
       "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151953525-28.jpg",
       "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151954759-29.jpg",
@@ -454,7 +454,7 @@ window.imoveis = [
       "",
       ""
     ],
-    "imagem": "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151912610-0.jpg",
+    "imagem": "https://raw.githubusercontent.com/mybox-santoandre/JM_Imoveis/main/images/1784151907421-1784151921417-6.jpg",
     "youtube": "",
     "badges": [
       "Novo"
